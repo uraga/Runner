@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class VentanaMenu extends JFrame {
 
@@ -41,37 +43,41 @@ public class VentanaMenu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("JUGAR");
-		btnNewButton.setBounds(129, 66, 177, 51);
-		contentPane.add(btnNewButton);
+		JButton btnJugar = new JButton("JUGAR");
+		btnJugar.setForeground(Color.BLACK);
+		btnJugar.setBackground(Color.WHITE);
+		btnJugar.setBounds(129, 66, 177, 51);
+		contentPane.add(btnJugar);
 		
-		JButton btnNewButton_1 = new JButton("OPCIONES");
-		btnNewButton_1.setBounds(129, 121, 177, 51);
-		contentPane.add(btnNewButton_1);
+		JButton btnOpciones = new JButton("OPCIONES");
+		btnOpciones.setBounds(129, 121, 177, 51);
+		contentPane.add(btnOpciones);
 		
-		JButton btnNewButton_2 = new JButton("CREDITOS");
-		btnNewButton_2.setBounds(129, 176, 177, 51);
-		contentPane.add(btnNewButton_2);
+		JButton btnCreditos = new JButton("CREDITOS");
+		btnCreditos.setBounds(129, 176, 177, 51);
+		contentPane.add(btnCreditos);
 		
-		JButton button = new JButton("<--");
-		button.setBounds(393, 6, 51, 29);
-		contentPane.add(button);
+		JButton btnExit = new JButton("<--");
+		btnExit.setBounds(393, 6, 51, 29);
+		contentPane.add(btnExit);
 		
 		JLabel lblRunner = new JLabel("RUNNER");
 		lblRunner.setFont(new Font("Lucida Grande", Font.PLAIN, 22));
 		lblRunner.setBounds(181, 16, 103, 38);
 		contentPane.add(lblRunner);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(393, 93, 51, 29);
-		contentPane.add(btnNewButton_3);
+		JButton btnTrofeos = new JButton();
+		btnTrofeos.setBounds(393, 66, 51, 56);
+		contentPane.add(btnTrofeos);
 		
-		JButton btnNewButton_4 = new JButton("New button");
-		btnNewButton_4.setBounds(393, 132, 51, 29);
-		contentPane.add(btnNewButton_4);
+		JButton btnTienda = new JButton();
+		btnTienda.setIcon(new ImageIcon(VentanaMenu.class.getResource("/Proyecto/carrito.png")));
+		btnTienda.setBounds(393, 121, 51, 56);
+		contentPane.add(btnTienda);
 		
-		JButton btnNewButton_5 = new JButton("New button");
-		btnNewButton_5.setBounds(393, 173, 51, 29);
-		contentPane.add(btnNewButton_5);
+		JButton btnAjustes = new JButton();
+		btnAjustes.setIcon(new ImageIcon(VentanaMenu.class.getResource("/Proyecto/ajustes.png")));
+		btnAjustes.setBounds(393, 176, 51, 56);
+		contentPane.add(btnAjustes);
 	}
 }
