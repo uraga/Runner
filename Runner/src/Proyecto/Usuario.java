@@ -1,37 +1,76 @@
 package Proyecto;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
 
-
-
-public class Usuario {
-
-	private static String username;
-	private static String password;
-	private static String email;
+public class Usuario implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	private String usuario;
+	private String contraseña;
+	private String email;
+	private String nombre;
+	private String apellidos;
+	private long telefono;
+	private int nivel;
+	private TipoUsuario tipo;
 	
 	
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public long getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(long telefono) {
+		this.telefono = telefono;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
+	public TipoUsuario getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoUsuario tipo) {
+		this.tipo = tipo;
+	}
+
 	public String getUsername() {
-		return username;
+		return usuario;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.usuario = username;
 	}
 
 	public String getPassword() {
-		return password;
+		return contraseña;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.contraseña = password;
 	}
 
 	public String getEmail() {
@@ -43,9 +82,9 @@ public class Usuario {
 	}
 
 	public boolean probarPass() {
-		username = VentanaUsuario.intrUsuario.getText();
-		password = VentanaUsuario.intrContrasena.getText();
-		if(username.equals(username)&&password.equals(password)) {
+		usuario = VentanaUsuario.intrUsuario.getText();
+		contraseña = VentanaUsuario.intrContrasena.getText();
+		if(usuario.equals(usuario)&&contraseña.equals(contraseña)) {
 			return true;
 		}
 		else {
