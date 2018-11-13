@@ -5,17 +5,14 @@ import java.io.Serializable;
 public class Usuario implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private String usuario;
-	private String contraseña;
-	private String email;
-	private String nombre;
-	private String apellidos;
-	private long telefono;
-	private int nivel;
-	private TipoUsuario tipo;
-	
-	
-	
+	public String usuario;
+	public String contrasena;
+	public String email;
+	public String nombre;
+	public String apellidos;
+	public long telefono;
+	public int nivel;
+	public TipoUsuario tipo;
 	
 	public String getNombre() {
 		return nombre;
@@ -66,11 +63,11 @@ public class Usuario implements Serializable{
 	}
 
 	public String getPassword() {
-		return contraseña;
+		return contrasena;
 	}
 
 	public void setPassword(String password) {
-		this.contraseña = password;
+		this.contrasena = password;
 	}
 
 	public String getEmail() {
@@ -80,11 +77,32 @@ public class Usuario implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public Usuario(String usuario, String contrasena, String nombre,
+			String apellidos, long telefono, TipoUsuario tipo,
+			String email, int nivel) {
+		super();
+		this.usuario = usuario;
+		this.contrasena = contrasena;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.telefono = telefono;
+		this.tipo = tipo;
+		this.email = email;
+		this.nivel = nivel;
+	}
+	
+	@Override
+	public String toString() {
+		return "Usuario: " + usuario + "\nNivel: " + nivel + "\nNombre: " + nombre + " " + apellidos + 
+			"\nTeléfono: " + telefono + "\nTipo de usuario: " + tipo +
+			"\nEmail: " + email;
+	}
 
 	public boolean probarPass() {
 		usuario = VentanaUsuario.intrUsuario.getText();
-		contraseña = VentanaUsuario.intrContrasena.getText();
-		if(usuario.equals(usuario)&&contraseña.equals(contraseña)) {
+		contrasena = VentanaUsuario.intrContrasena.getText();
+		if(usuario.equals(usuario)&&contrasena.equals(contrasena)) {
 			return true;
 		}
 		else {
