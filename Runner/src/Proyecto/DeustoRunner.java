@@ -43,9 +43,27 @@ public class DeustoRunner implements Serializable {
 		return posY;
 	}
 	
+	public void mover() {
+		
+	}
 	
-
-
-
-
+	public void saltar() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
