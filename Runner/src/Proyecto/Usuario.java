@@ -54,19 +54,19 @@ public class Usuario implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public String getUsername() {
+	public String getUsuario() {
 		return usuario;
 	}
 
-	public void setUsername(String username) {
+	public void setUsuario(String username) {
 		this.usuario = username;
 	}
 
-	public String getPassword() {
+	public String getContrasena() {
 		return contrasena;
 	}
 
-	public void setPassword(String password) {
+	public void setContrasena(String password) {
 		this.contrasena = password;
 	}
 
@@ -99,6 +99,7 @@ public class Usuario implements Serializable{
 			"\nEmail: " + email;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean probarPass() {
 		usuario = VentanaUsuario.intrUsuario.getText();
 		contrasena = VentanaUsuario.intrContrasena.getText();
