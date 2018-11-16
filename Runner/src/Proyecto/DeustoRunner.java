@@ -2,6 +2,8 @@ package Proyecto;
 
 import java.io.Serializable;
 
+import javafx.scene.effect.Light.Point;
+
 public class DeustoRunner implements Serializable {
 
 	/**
@@ -43,7 +45,17 @@ public class DeustoRunner implements Serializable {
 		return posY;
 	}
 	
+	public void setPosicion( double posX, double posY ) {
+		this.posX = posX;
+		this.posY = posY;
+	}
+		
+	
 	public void mover() {
+		
+	}
+	
+	public void quitar() {
 		
 	}
 	
