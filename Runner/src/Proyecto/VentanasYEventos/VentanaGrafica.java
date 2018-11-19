@@ -1,4 +1,4 @@
-package Proyecto.ClasesBasicas;
+package Proyecto.VentanasYEventos;
 
 import java.util.ArrayList;
 

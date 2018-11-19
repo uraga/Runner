@@ -2,7 +2,8 @@ package Proyecto.ClasesBasicas;
 
 import java.io.Serializable;
 
-
+import Proyecto.VentanasYEventos.EventoVentana;
+import Proyecto.VentanasYEventos.TeclaPulsada;
 import javafx.scene.effect.Light.Point;
 
 public class DeustoRunner implements Serializable {
