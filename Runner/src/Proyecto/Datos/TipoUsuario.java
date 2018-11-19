@@ -1,4 +1,4 @@
-package Proyecto.ClasesBasicas;
+package Proyecto.Datos;
 
 public enum TipoUsuario {
 	Admin, Jugador

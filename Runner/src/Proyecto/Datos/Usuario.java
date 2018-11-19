@@ -1,4 +1,4 @@
-package Proyecto.ClasesBasicas;
+package Proyecto.Datos;
 
 import java.io.Serializable;
 

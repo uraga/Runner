@@ -1,5 +1,7 @@
 package Proyecto.ClasesBasicas;
 
+import Proyecto.Datos.Usuario;
+
 public class Partida {
 	public Usuario usuario;
 	public long fechaPartida;

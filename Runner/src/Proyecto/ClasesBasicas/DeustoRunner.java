@@ -3,66 +3,26 @@ package Proyecto.ClasesBasicas;
 import java.io.Serializable;
 
 import Proyecto.VentanasYEventos.EventoVentana;
+import Proyecto.VentanasYEventos.ObjetoGrafico;
 import Proyecto.VentanasYEventos.TeclaPulsada;
-import javafx.scene.effect.Light.Point;
+import Proyecto.VentanasYEventos.VentanaGrafica;
 
-public class DeustoRunner implements Serializable {
+
+public class DeustoRunner extends ObjetoPantalla implements Serializable {
+
+public DeustoRunner(int posX, int posY, int ancho, int alto, VentanaGrafica ventana) {
+		super(posX, posY, ancho, alto, ventana);
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected int altura;
-	protected int anchura;
-	protected double posX;
-	protected double posY;
-	protected long tiempoMovimiento;
 	public static final double VEL_SALTO = 300;
 	protected double velHaciaArriba = 0D;
 	protected boolean estoyMuerto = false;
-	
-	
-	public DeustoRunner(int altura, int anchura, double posX, double posY, long tiempoMovimiento) {
-		this.altura = altura;
-		this.anchura = anchura;
-		this.posX = posX;
-		this.posY = posY;
-		this.tiempoMovimiento = System.currentTimeMillis();
-	}
-
-
-	public int getAltura() {
-		return altura;
-	}
-
-
-	public int getAnchura() {
-		return anchura;
-	}
-
-
-	public double getPosX() {
-		return posX;
-	}
-
-
-	public double getPosY() {
-		return posY;
-	}
-	
-	public void setPosicion( double posX, double posY ) {
-		this.posX = posX;
-		this.posY = posY;
-	}
-		
-	
-	public void mover() {
-		
-	}
-	
-	public void quitar() {
-		
-	}
+	protected ObjetoGrafico og;
 	
 	public void saltar() {
 		velHaciaArriba = VEL_SALTO;
@@ -75,6 +35,28 @@ public class DeustoRunner implements Serializable {
 			}
 		}
 	}
+
+	@Override
+	public void quitar() {
+		muero();
+		ventana.remove(og);
+	}
+
+	@Override
+	public void mover() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean estoyMuerto() {
+		return this.estoyMuerto;
+	}
+	
+	public void muero() {
+		estoyMuerto = true;
+	}
+	
+	
 	
 	
 	
