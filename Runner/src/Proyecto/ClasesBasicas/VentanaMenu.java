@@ -1,4 +1,4 @@
-package Proyecto;
+package Proyecto.ClasesBasicas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

@@ -1,10 +1,11 @@
-package Proyecto;
+package Proyecto.ClasesBasicas;
 
 import java.awt.event.KeyEvent;
 
-public class TeclaSoltada implements EventoTeclado{
+public class TeclaPulsada implements EventoTeclado{
+	
 	private KeyEvent ke;
-	public TeclaSoltada(KeyEvent ke) {
+	public TeclaPulsada(KeyEvent ke) {
 		this.ke = ke;
 	}
 

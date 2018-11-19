@@ -1,4 +1,4 @@
-package Proyecto;
+package Proyecto.ClasesBasicas;
 
 public interface EventoTeclado extends EventoVentana{
 	

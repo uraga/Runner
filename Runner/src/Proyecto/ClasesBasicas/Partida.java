@@ -1,4 +1,4 @@
-package Proyecto;
+package Proyecto.ClasesBasicas;
 
 public class Partida {
 	public Usuario usuario;
