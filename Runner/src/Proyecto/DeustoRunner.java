@@ -2,6 +2,7 @@ package Proyecto;
 
 import java.io.Serializable;
 
+
 import javafx.scene.effect.Light.Point;
 
 public class DeustoRunner implements Serializable {
@@ -15,6 +16,9 @@ public class DeustoRunner implements Serializable {
 	protected double posX;
 	protected double posY;
 	protected long tiempoMovimiento;
+	public static final double VEL_SALTO = 300;
+	protected double velHaciaArriba = 0D;
+	protected boolean estoyMuerto = false;
 	
 	
 	public DeustoRunner(int altura, int anchura, double posX, double posY, long tiempoMovimiento) {
@@ -60,9 +64,16 @@ public class DeustoRunner implements Serializable {
 	}
 	
 	public void saltar() {
-		
+		velHaciaArriba = VEL_SALTO;
 	}
 	
+	private static void controlDeJugador (EventoVentana ev, DeustoRunner dr) {
+		if (ev != null) {
+			if (ev instanceof TeclaPulsada) {
+				dr.saltar();
+			}
+		}
+	}
 	
 	
 	
