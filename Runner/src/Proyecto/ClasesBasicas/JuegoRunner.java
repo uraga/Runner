@@ -3,6 +3,7 @@ package Proyecto.ClasesBasicas;
 import java.util.ArrayList;
 
 import Proyecto.VentanasYEventos.EventoVentana;
+import Proyecto.VentanasYEventos.ObjetoGrafico;
 import Proyecto.VentanasYEventos.TeclaPulsada;
 import Proyecto.VentanasYEventos.VentanaGrafica;
 
@@ -80,6 +81,21 @@ public class JuegoRunner {
 			return true;
 		}
 		return false;
+	}
+	
+	private static int comprobarChoque( DeustoRunner dr, ArrayList<Obstaculo> columnas ) {
+		for (int i=0; i<columnas.size(); i++) {
+			Obstaculo c = (Obstaculo) columnas.get(i);
+			for (int j=0; j<c.getObjetosGraficos().size(); j++) {
+				ObjetoGrafico o = (ObjetoGrafico) c.getObjetosGraficos().get(j);
+				if (dr.getOg().chocaCon(o, 5)) {  // 5 pxs de margen 
+					// System.out.println( "CHOQUE!!!");
+					dr.chocar( c );
+					
+				}
+			}
+		}
+		return 0;
 	}
 
 }

@@ -1,18 +1,38 @@
 package Proyecto.ClasesBasicas;
 
+import java.awt.Point;
+import java.util.Random;
+
+import Proyecto.VentanasYEventos.ObjetoGrafico;
 import Proyecto.VentanasYEventos.VentanaGrafica;
 
-public class Monedas extends ObjetoPantalla{
 
-	public Monedas(int posX, int posY, int ancho, int alto, VentanaGrafica ventana) {
-		super(posX, posY, ancho, alto, ventana);
-		// TODO Auto-generated constructor stub
+public class Monedas extends ObjetoPantalla{
+	
+	protected ObjetoGrafico og;
+	protected boolean estoyMuerto = false;
+	protected boolean parado = false;
+	public static final int PX_ALTO_BONUS = 40;
+	public static final int PX_ANCHO_BONUS = 30;
+	private static Random r = new Random();
+
+	public Monedas(int posX, int posY, VentanaGrafica ventana) {
+		super(posX, posY, PX_ANCHO_BONUS*2, PX_ALTO_BONUS*2, ventana);
+		og = new ObjetoGrafico( "Moneda.png" , true, PX_ANCHO_BONUS*2, PX_ALTO_BONUS*2);
+		og.setName( "moneda" );
+		og.setRectanguloDeChoque( PX_ANCHO_BONUS/2, PX_ALTO_BONUS/2, og.getAnchuraObjeto()-PX_ANCHO_BONUS/2, og.getAlturaObjeto()-PX_ALTO_BONUS/2 );
+		ventana.addObjeto( og, new Point( posX, posY ) );
 	}
 
 	@Override
 	public void quitar() {
-		// TODO Auto-generated method stub
+		muero();
+		ventana.removeObjeto(og);
 		
+	}
+	
+	public void muero() {
+		estoyMuerto = true;
 	}
 
 	@Override

@@ -1,9 +1,15 @@
 package Proyecto.VentanasYEventos;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+
+
 
 
 
@@ -18,6 +24,7 @@ public class VentanaGrafica extends JFrame {
 	private ArrayList<Animacion> animacionesPendientes = new ArrayList<Animacion>();
 	private boolean generarClicksYDrags;
 	private boolean todosLosEventosDeRaton; 
+	private JLayeredPane layeredPane = new JLayeredPane();
 	
 	
 	public VentanaGrafica(int anchuraVent, int alturaVent, boolean cerrable, boolean tamFijo, String titulo) {
@@ -79,5 +86,61 @@ public class VentanaGrafica extends JFrame {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public void addObjeto( final ObjetoGrafico oj ) {
+		try {
+			SwingUtilities.invokeLater( new Runnable() {
+				@Override
+				public void run() {
+					layeredPane.add( oj, new Integer( JLayeredPane.DEFAULT_LAYER ) );
+					layeredPane.repaint( oj.getX(), oj.getY(), oj.getAnchuraObjeto(), oj.getAlturaObjeto() );
+//					pAreaJuego.add( oj );
+//					pAreaJuego.repaint( oj.getX(), oj.getY(), oj.getAnchuraObjeto(), oj.getAlturaObjeto() );
+				}
+			});
+		} catch (Exception e) {
+		}
+	}
+	
+	public void addObjeto( final ObjetoGrafico oj, Point p ) {
+		oj.setLocation(p);
+		addObjeto(oj);
+	}
+	
+	
+	public void removeObjeto( final ObjetoGrafico oj ) {
+		try {
+			SwingUtilities.invokeLater( new Runnable() {
+				@Override
+				public void run() {
+					layeredPane.remove( oj );
+					layeredPane.repaint( oj.getX(), oj.getY(), oj.getAnchuraObjeto(), oj.getAlturaObjeto() );
+					layeredPane.validate();  
+				}
+			});
+		} catch (Exception e) {
+		}
+	}
+	
+	public int getAltoPanelGrafico() {
+		return layeredPane.getHeight();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
