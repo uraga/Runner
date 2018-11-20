@@ -7,6 +7,8 @@ import Proyecto.VentanasYEventos.ObjetoGrafico;
 import Proyecto.VentanasYEventos.VentanaGrafica;
 
 
+
+
 public class Monedas extends ObjetoPantalla{
 	
 	protected ObjetoGrafico og;
@@ -22,6 +24,10 @@ public class Monedas extends ObjetoPantalla{
 		og.setName( "moneda" );
 		og.setRectanguloDeChoque( PX_ANCHO_BONUS/2, PX_ALTO_BONUS/2, og.getAnchuraObjeto()-PX_ANCHO_BONUS/2, og.getAlturaObjeto()-PX_ALTO_BONUS/2 );
 		ventana.addObjeto( og, new Point( posX, posY ) );
+	}
+	
+	public ObjetoGrafico getObjetoGrafico() {
+		return og;
 	}
 
 	@Override
@@ -41,5 +47,11 @@ public class Monedas extends ObjetoPantalla{
 		
 	}
 	
+	public boolean estoyFuera() {
+		return (posX < ancho/2);
+	}
+	
+	
+
 
 }

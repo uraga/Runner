@@ -27,11 +27,11 @@ public class Obstaculo extends ObjetoPantalla{
 	
 
 	public Obstaculo( int numCol, int posX, int posY, VentanaGrafica ventana ) {
-		super( posX, 0, JuegoRunner.PX_ANCHO_UD, 0, ventana );
-		cactus = new ObjetoGrafico( "ladrillo.png", true, JuegoRunner.PX_ANCHO_UD, JuegoRunner.PX_ALTO_UD );
+		super( posX, 0, JuegoRunner.PX_ANCHO_R, 0, ventana );
+		cactus = new ObjetoGrafico( "ladrillo.png", true, JuegoRunner.PX_ANCHO_R, JuegoRunner.PX_ALTO_R );
 		int alto = 100;
 		do {
-			ObjetoGrafico og = new ObjetoGrafico( "ladrillo.png" , true, JuegoRunner.PX_ANCHO_UD, JuegoRunner.PX_ALTO_UD );
+			ObjetoGrafico og = new ObjetoGrafico( "ladrillo.png" , true, JuegoRunner.PX_ANCHO_R, JuegoRunner.PX_ALTO_R );
 			ventana.addObjeto( og, new Point( posX, posY));
 			listaOG.add( og );
 			og.setName( "Abajo-" + numCol + "->" + posY );
@@ -64,7 +64,7 @@ public class Obstaculo extends ObjetoPantalla{
 		posX = posX - tiempoCambio * JuegoRunner.getVelAvance() / 1000D;
 		int posXNueva = (int) Math.round( posX );
 		if (((ObjetoGrafico)listaOG.get(0)).getX() != posXNueva) {
-			if (posXNueva < -JuegoRunner.PX_ANCHO_UD){ 
+			if (posXNueva < -JuegoRunner.PX_ANCHO_R){ 
 				quitar();
 			} else {  // Si no, se mueve
 				for (int i=0; i<listaOG.size(); i++) {

@@ -1,5 +1,6 @@
 package Proyecto.VentanasYEventos;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 
 
 
@@ -25,6 +27,9 @@ public class VentanaGrafica extends JFrame {
 	private boolean generarClicksYDrags;
 	private boolean todosLosEventosDeRaton; 
 	private JLayeredPane layeredPane = new JLayeredPane();
+	private static final Integer CAPA_FONDO = new Integer(-100);
+	private static final Integer CAPA_DIBUJO = new Integer(-50); 
+	private static final int PX_SOLAPE_FONDOS = 0;
 	
 	
 	public VentanaGrafica(int anchuraVent, int alturaVent, boolean cerrable, boolean tamFijo, String titulo) {
@@ -126,7 +131,69 @@ public class VentanaGrafica extends JFrame {
 		return layeredPane.getHeight();
 	}
 	
+	public int getAnchoPanelGrafico() {
+		return layeredPane.getWidth();
+	}
 	
+	public void setFondoAnimado( ObjetoGrafico og1, ObjetoGrafico og2, double pixDespAIzqda ) {
+		// Quitar posibles fondos anteriores
+		for (Component c : layeredPane.getComponentsInLayer( CAPA_FONDO )) {
+			layeredPane.remove( c );
+		}
+		fondo1 = og1;
+		fondo2 = og2;
+		og1.setLocation( 0, 0 );
+		og2.setLocation( og1.getWidth() - PX_SOLAPE_FONDOS, 0 ); 
+		coorX1 = 0;
+		coorX2 = og1.getWidth() - PX_SOLAPE_FONDOS;
+		layeredPane.add( og1, CAPA_FONDO );
+		layeredPane.add( og2, CAPA_FONDO );
+		layeredPane.repaint();
+		fondoAnimado = true;
+		fondoRodando = false;
+		this.pixDespAIzqda = pixDespAIzqda;
+		if (hilo==null) { hilo = new HiloAnimacion(); hilo.start(); }
+	}
+		// Atributos de animaci�n de fondo:
+		private boolean fondoAnimado = false;
+		private boolean fondoRodando = true;
+		private double pixDespAIzqda = 0D;
+		private double coorX1 = 0D;
+		private double coorX2 = 0D;
+		private ObjetoGrafico fondo1 = null;
+		private ObjetoGrafico fondo2 = null;
+		
+	public void rodarFondoAnimado( boolean seguir ) {
+		fondoRodando = seguir;
+	}
+	
+	public void finish() {
+		if (hilo!=null) { hilo.interrupt(); }
+		dispose();
+	}
+	
+	public void borraEventos() {
+		eventosVentana.clear();
+	}
+	
+	public boolean isClosed() {
+		return !isVisible();
+	}
+	
+	public void clearObjetos() {
+		try {
+			SwingUtilities.invokeLater( new Runnable() {
+				@Override
+				public void run() {
+					for (Component c : layeredPane.getComponentsInLayer( JLayeredPane.DEFAULT_LAYER )) {
+						layeredPane.remove( c );
+					}
+					layeredPane.repaint();
+				}
+			});
+		} catch (Exception e) {
+		}
+	}
 	
 	
 	
