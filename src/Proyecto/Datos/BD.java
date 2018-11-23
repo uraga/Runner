@@ -1,7 +1,7 @@
 package Proyecto.Datos;
 
 /**
- * BD del runner
+ * BD del runner.
  *
  */
 public class BD {
