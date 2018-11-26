@@ -131,8 +131,8 @@ public class JuegoRunner {
 	@SuppressWarnings("unused")
 	private static void Juego() {
 		VentanaGrafica v = new VentanaGrafica(PX_ANCHO_VENT, PX_ALTO_VENT, true, false, "JuegoRunner" );
-		v.setFondoAnimado(new ObjetoGrafico("UD-roller.jpg", true ),
-				new ObjetoGrafico("UD-roller.jpg", true ), 1 );
+		v.setFondoAnimado(new ObjetoGrafico("dunas-del-desierto.jpg", true ),
+				new ObjetoGrafico("dunas-del-desierto.jpg", true ), 1 );
 		int posY = (v.getAltoPanelGrafico() - PX_ALTO_R) / 2;   // C�lculo altura del prota en la mitad de la ventana
 		Random r = new Random();
 		EventoVentana ev = null;

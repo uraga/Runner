@@ -9,6 +9,7 @@ import java.util.logging.Level;
 
 
 
+
 /**
  * Gestión BD del runner.
  *
@@ -86,6 +87,7 @@ public class BD {
 		}
 	}
 	
+	
 	/**
 	 * CERRAR CONEXION BD
 	 */
@@ -96,6 +98,8 @@ public class BD {
 		} catch (SQLException e) {
 		}
 	}
+	
+	
 	
 	
 	//Main de prueba
