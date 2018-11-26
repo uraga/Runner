@@ -32,25 +32,25 @@ public class JuegoRunner {
 	public static final int PUNTOS_POR_MONEDA = 5;  
 	public static final long TIEMPO_AVANCE_NIVEL = 10000;
 	public static final double INI_VELOCIDAD_POR_NIVEL = 180;  // pix/seg
-	public static final long INI_TIEMPO_COLS_POR_NIVEL = 2000;  // msg
-	public static final int INI_HUECO_ENTRE_COLUMNAS = 250;  // pixels de alto de hueco
+	public static final long INI_TIEMPO_OBS_POR_NIVEL = 2000;  // msg
+	public static final int INI_HUECO_ENTRE_OBSTACULOS = 250;  // pixels de alto de hueco
 	public static final double INC_VELOCIDAD_POR_NIVEL = 6;  // +pix/seg
 	public static final long  INC_TIEMPO_COLS_POR_NIVEL = -33;  // msg
-	public static final int INC_HUECO_ENTRE_COLUMNAS = -4;  // +pixels de alto de hueco
+	public static final int INC_HUECO_ENTRE_OBSTACULOS = -4;  // +pixels de alto de hueco
 	public static final double MAX_VELOCIDAD_POR_NIVEL = 360;  // +pix/seg
 	public static final long MIN_TIEMPO_COLS_POR_NIVEL = 1000;  // msg
-	public static final int MIN_HUECO_ENTRE_COLUMNAS = 140;  // +pixels de alto de hueco
+	public static final int MIN_HUECO_ENTRE_OBSTACULOS = 140;  // +pixels de alto de hueco
 	private static double velAvance = INI_VELOCIDAD_POR_NIVEL;
-	private static long tiempoEntreColumnas = INI_TIEMPO_COLS_POR_NIVEL;
-	private static int huecoEntreColumnas = INI_HUECO_ENTRE_COLUMNAS;
+	private static long tiempoEntreObstaculos = INI_TIEMPO_OBS_POR_NIVEL;
+	private static int huecoEntreObstaculos = INI_HUECO_ENTRE_OBSTACULOS;
 	private static int numVidas;
 	
-	public static int getHuecoEntreColumnas() {
-		return huecoEntreColumnas;
+	public static int gethuecoEntreObstaculos() {
+		return huecoEntreObstaculos;
 	}
 	
-	public static void setHuecoEntreColumnas(int huecoEntreColumnas) {
-		JuegoRunner.huecoEntreColumnas = huecoEntreColumnas;
+	public static void sethuecoEntreObstaculos(int huecoEntreObstaculos) {
+		JuegoRunner.huecoEntreObstaculos = huecoEntreObstaculos;
 	}
 	
 	public static double getVelAvance() {
@@ -61,12 +61,12 @@ public class JuegoRunner {
 		velAvance = nuevaVelAvance;
 	}
 	
-	public static long getTiempoEntreCols() {
-		return tiempoEntreColumnas;
+	public static long getTiempoEntreObs() {
+		return tiempoEntreObstaculos;
 	}
 	
-	public static void setTiempoEntreCols( long nuevoTiempo ) {
-		tiempoEntreColumnas = nuevoTiempo;
+	public static void setTiempoEntreObs( long nuevoTiempo ) {
+		tiempoEntreObstaculos = nuevoTiempo;
 	}
 	
 	private static void controlDeJugador( EventoVentana ev, DeustoRunner dr ) {
@@ -123,7 +123,7 @@ public class JuegoRunner {
 	}
 	
 	private static void crearNuevosObstaculos( VentanaGrafica v, int huecoEn, int numObstaculo, ArrayList<Obstaculo> obstaculo ) {
-		Obstaculo ob = new Obstaculo( numObstaculo, huecoEn + getHuecoEntreColumnas(), v.getAnchoPanelGrafico(), v );
+		Obstaculo ob = new Obstaculo( numObstaculo, huecoEn + gethuecoEntreObstaculos(), v.getAnchoPanelGrafico(), v );
 		obstaculo.add( ob );
 	}
 	
@@ -148,7 +148,7 @@ public class JuegoRunner {
 			boolean puedeHaberMonedas = false;  
 			int puntosPorMonedas = 0;
 			long tiempoJuego = System.currentTimeMillis();
-			long tiempoUltimoObstaculo = tiempoJuego - tiempoEntreColumnas;
+			long tiempoUltimoObstaculo = tiempoJuego - tiempoEntreObstaculos;
 			int numObstaculo = 0;
 			int ObstaculosPasados = 0;
 			long tiempoUltimoAvanceNivel = tiempoJuego;
@@ -195,9 +195,9 @@ public class JuegoRunner {
 					puntosPorMonedas += PUNTOS_POR_MONEDA;
 				}
 					// 5. Ver si salen nuevas columnas
-				if (tiempoActual - tiempoUltimoObstaculo > getTiempoEntreCols()) {  // Crear nuevas columnas
+				if (tiempoActual - tiempoUltimoObstaculo > getTiempoEntreObs()) {  // Crear nuevas columnas
 					// Calcular sitio del hueco en random
-					int huecoEn = r.nextInt( v.getAltoPanelGrafico() - getHuecoEntreColumnas() - 20 ) + 10;
+					int huecoEn = r.nextInt( v.getAltoPanelGrafico() - gethuecoEntreObstaculos() - 20 ) + 10;
 					numObstaculo++;
 					tiempoUltimoObstaculo = tiempoActual;
 					crearNuevosObstaculos( v, huecoEn, numObstaculo, obstaculos );
@@ -205,7 +205,7 @@ public class JuegoRunner {
 				}
 					// 6. Ver si salen nuevos bonus (aleatorios y entre columnas)
 				if (puedeHaberMonedas) {
-					if (tiempoActual - tiempoUltimoObstaculo > getTiempoEntreCols()/2 ) {  
+					if (tiempoActual - tiempoUltimoObstaculo > getTiempoEntreObs()/2 ) {  
 						// En la mitad del tiempo entre columnas...
 						// Ver si pasa el aleatorio (20%)
 						if (r.nextFloat() < PROBABILIDAD_MONEDAS ) {
