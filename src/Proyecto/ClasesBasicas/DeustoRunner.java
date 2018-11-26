@@ -23,7 +23,7 @@ public class DeustoRunner extends ObjetoPantalla implements Serializable {
 
 	public DeustoRunner( int posX, int posY, VentanaGrafica ventana ) {
 		super( posX, posY, JuegoRunner.PX_ANCHO_R*2, JuegoRunner.PX_ALTO_R*2, ventana );
-		og = new ObjetoGrafico( "images.png", true, JuegoRunner.PX_ANCHO_R*2, JuegoRunner.PX_ALTO_R*2);
+		og = new ObjetoGrafico( "clipart2103535.png", true, JuegoRunner.PX_ANCHO_R*2, JuegoRunner.PX_ALTO_R*2);
 		og.setName( "Dino" );
 		og.setRectanguloDeChoque( JuegoRunner.PX_ANCHO_R/2, JuegoRunner.PX_ALTO_R/2, og.getAnchuraObjeto()-JuegoRunner.PX_ANCHO_R/2, og.getAlturaObjeto()-JuegoRunner.PX_ALTO_R/2 );
 		ventana.addObjeto( og, new Point( posX, posY ) );
