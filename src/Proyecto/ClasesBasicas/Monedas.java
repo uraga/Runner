@@ -13,10 +13,9 @@ public class Monedas extends ObjetoPantalla{
 	
 	protected ObjetoGrafico og;
 	protected boolean estoyMuerto = false;
-	protected boolean parado = false;
 	public static final int PX_ALTO_MONEDA = 40;
 	public static final int PX_ANCHO_MONEDA = 30;
-	private static Random r = new Random();
+
 
 	public Monedas(int posX, int posY, VentanaGrafica ventana) {
 		super(posX, posY, PX_ANCHO_MONEDA*2, PX_ALTO_MONEDA*2, ventana);

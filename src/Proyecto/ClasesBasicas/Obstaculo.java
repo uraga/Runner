@@ -34,8 +34,7 @@ public class Obstaculo extends ObjetoPantalla{
 			ObjetoGrafico og = new ObjetoGrafico( "ladrillo.png" , true, JuegoRunner.PX_ANCHO_R, JuegoRunner.PX_ALTO_R );
 			ventana.addObjeto( og, new Point( posX, posY));
 			listaOG.add( og );
-			og.setName( "Abajo-" + numCol + "->" + posY );
-			posY += JuegoRunner.PX_PEGADOS_COLUMNA;
+			og.setName( "Cactus" + numCol + "->" + posY );
 		} while (posY < ventana.getAltoPanelGrafico());
 	}
 	
@@ -59,9 +58,8 @@ public class Obstaculo extends ObjetoPantalla{
 
 	@Override
 	public void mover() {
-		long tiempoCambio = System.currentTimeMillis() - tiempoMovimiento;
-		tiempoMovimiento = System.currentTimeMillis();
-		posX = posX - tiempoCambio * JuegoRunner.getVelAvance() / 1000D;
+		
+		posX = posX * JuegoRunner.getVelAvance() / 1000D;
 		int posXNueva = (int) Math.round( posX );
 		if (((ObjetoGrafico)listaOG.get(0)).getX() != posXNueva) {
 			if (posXNueva < -JuegoRunner.PX_ANCHO_R){ 

@@ -71,14 +71,7 @@ public class VentanaGrafica extends JFrame {
 					}
 				});
 					layeredPane.addKeyListener( new KeyAdapter() {
-						@Override
-						public void keyReleased(KeyEvent e) {
-							addEvento( new TeclaSoltada( e ) );
-						}
-						@Override
-						public void keyPressed(KeyEvent e) {
-							addEvento( new TeclaPulsada( e ) );
-						}
+						
 					});
 				}
 			} );

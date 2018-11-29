@@ -1,11 +1,12 @@
 package Proyecto.ClasesBasicas;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import Proyecto.VentanasYEventos.EventoVentana;
 import Proyecto.VentanasYEventos.ObjetoGrafico;
-import Proyecto.VentanasYEventos.TeclaPulsada;
 import Proyecto.VentanasYEventos.VentanaGrafica;
 
 
@@ -16,10 +17,19 @@ public class DeustoRunner extends ObjetoPantalla implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final double VEL_SALTO = 300;
-	protected double velHaciaArriba = 0D;
+	protected static double velHaciaArriba;
 	protected boolean estoyMuerto = false;
 	protected ObjetoGrafico og;
+	int ancho = JuegoRunner.PX_ALTO_R*2;
+	int alto = JuegoRunner.PX_ANCHO_R*2;
+	int x = JuegoRunner.PROTA_X;
+    int y = 350;
+	int x1 = 0;
+    int y1 = 0;
+	private VentanaGrafica ventana;
+    boolean saltando = false;
+    boolean sube = false;
+    boolean baja = false;
 
 	public DeustoRunner( int posX, int posY, VentanaGrafica ventana ) {
 		super( posX, posY, JuegoRunner.PX_ANCHO_R*2, JuegoRunner.PX_ALTO_R*2, ventana );
@@ -29,6 +39,8 @@ public class DeustoRunner extends ObjetoPantalla implements Serializable {
 		ventana.addObjeto( og, new Point( posX, posY ) );
 	}
 	
+	
+
 	public ObjetoGrafico getOg() {
 		return og;
 	}
@@ -37,16 +49,8 @@ public class DeustoRunner extends ObjetoPantalla implements Serializable {
 		this.og = og;
 	}
 
-	public void saltar() {
-		velHaciaArriba = VEL_SALTO;
-	}
-	
-	private static void controlDeJugador (EventoVentana ev, DeustoRunner dr) {
-		if (ev != null) {
-			if (ev instanceof TeclaPulsada) {
-				dr.saltar();
-			}
-		}
+	public static void saltar() {
+		 velHaciaArriba = JuegoRunner.VEL_SALTO;
 	}
 
 	@Override
@@ -66,22 +70,42 @@ public class DeustoRunner extends ObjetoPantalla implements Serializable {
 	@Override
 	public void mover() {
 		if (!estoyMuerto) {
-			long tiempoCambio = System.currentTimeMillis() - tiempoMovimiento;
-			tiempoMovimiento = System.currentTimeMillis();
-			velHaciaArriba = velHaciaArriba + JuegoRunner.ACEL_CAIDA * tiempoCambio / 1000D;  // cambio de velocidad con la aceleraci�n
-			posY = posY - tiempoCambio * velHaciaArriba / 1000D;
-			int posYNueva = (int) Math.round( posY );
-//			if (og.getY() != posYNueva) {
-//				if (posYNueva > JuegoRunner.PX_ALTO_VENT-(JuegoRunner.PX_ALTO_UD/2) ||
-//					posYNueva < - 3*JuegoRunner.PX_ALTO_UD/2){  // Si se ha salido por abajo se quita (se muere)
-//					muero();
-//					quitar();
-//				} else {  // Si no, se mueve
-			og.setLocation( og.getX(), posYNueva );
-//				}
-//			}
+			if (x + x1 > 0 && x + x1 < ventana.getWidth() - ancho)
+				x = x + x1;
+	                if(saltando)
+	                {
+	                    if(y == 350) //el personaje esta en el suelo
+	                    		{sube = true;
+	                        y1 = -10;
+	                        baja = false;}
+	                    if(y == 200) //el personale llego al limite del salto
+	                        {baja = true;
+	                        y1 = 10;
+	                        sube = false;
+	                        }
+	                    if(sube)
+	                        {
+	                            y = y + y1;
+	                        }
+	                    if(baja)
+	                        {
+	                            y = y + y1;
+	                            if(y == 350)
+	                            {
+	                                saltando = false;
+	                            }
+	                        }
+	                }
+	        }
 		}
-	}
+	
+	public void keyPressed(KeyEvent e) {
+		
+        if (e.getKeyCode() == KeyEvent.VK_SPACE)
+            {
+                saltando=true;
+            }
+}
 	
 	public void parar() {
 		velHaciaArriba = 0;
