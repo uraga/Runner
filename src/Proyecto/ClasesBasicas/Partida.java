@@ -1,10 +1,12 @@
 package Proyecto.ClasesBasicas;
 
+import java.util.Date;
+
 import Proyecto.Datos.Usuario;
 
 public class Partida {
 	public Usuario usuario;
-	public long fechaPartida;
+	public Date fechaPartida;
 	public int puntuacion;
 	public int monedasConseguidas;
 	
@@ -16,11 +18,11 @@ public class Partida {
 		this.usuario = usuario;
 	}
 	
-	public long getFechaPartida() {
+	public Date getFechaPartida() {
 		return fechaPartida;
 	}
 	
-	public void setFechaPartida(long fechaPartida) {
+	public void setFechaPartida(Date fechaPartida) {
 		this.fechaPartida = fechaPartida;
 	}
 	
@@ -40,8 +42,7 @@ public class Partida {
 		this.monedasConseguidas = monedasConseguidas;
 	}
 	
-	public Partida(Usuario usuario, long fechaPartida, int puntuacion, 
-			int monedasConseguidas) {
+	public Partida(Usuario usuario, Date fechaPartida, int puntuacion, int monedasConseguidas) {
 		super();
 		this.usuario = usuario;
 		this.fechaPartida = fechaPartida;

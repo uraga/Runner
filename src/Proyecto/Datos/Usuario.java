@@ -80,9 +80,7 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 	
-	public Usuario(String usuario, String contrasena, String nombre,
-			String apellidos, long telefono, TipoUsuario tipo,
-			String email, int nivel) {
+	public Usuario(String usuario, String contrasena, String nombre, String apellidos, long telefono, TipoUsuario tipo, String email, int nivel) {
 		super();
 		this.usuario = usuario;
 		this.contrasena = contrasena;
@@ -105,7 +103,7 @@ public class Usuario implements Serializable{
 	public boolean probarPass() {
 		usuario = VentanaUsuario.intrUsuario.getText();
 		contrasena = VentanaUsuario.intrContrasena.getText();
-		if(usuario.equals(usuario)&&contrasena.equals(contrasena)) {
+		if(usuario.equals(usuario) && contrasena.equals(contrasena)) {
 			return true;
 		}
 		else {

@@ -17,11 +17,11 @@ public class DeustoRunner extends ObjetoPantalla implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected static double velHaciaArriba;
+	protected static double velHaciaArriba = 0D;
 	protected boolean estoyMuerto = false;
 	protected ObjetoGrafico og;
-	int ancho = JuegoRunner.PX_ALTO_R*2;
-	int alto = JuegoRunner.PX_ANCHO_R*2;
+	int ancho = JuegoRunner.PX_ANCHO_R*2;
+	int alto = JuegoRunner.PX_ALTO_R*2;
 	int x = JuegoRunner.PROTA_X;
     int y = 350;
 	int x1 = 0;
@@ -45,10 +45,6 @@ public class DeustoRunner extends ObjetoPantalla implements Serializable {
 		return og;
 	}
 	
-	public void setOg(ObjetoGrafico og) {
-		this.og = og;
-	}
-
 	public static void saltar() {
 		 velHaciaArriba = JuegoRunner.VEL_SALTO;
 	}

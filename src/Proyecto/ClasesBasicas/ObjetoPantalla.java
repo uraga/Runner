@@ -55,8 +55,6 @@ abstract public class ObjetoPantalla {
 		return choca;
 	}
 	
-	public String toString() {
-		return "[objetoPantalla (" + posX + "," + posY + ")]";
-	}
+	
 
 }
