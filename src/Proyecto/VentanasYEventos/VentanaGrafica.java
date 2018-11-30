@@ -70,9 +70,7 @@ public class VentanaGrafica extends JFrame {
 						layeredPane.requestFocus();
 					}
 				});
-					layeredPane.addKeyListener( new KeyAdapter() {
-						
-					});
+					layeredPane.addKeyListener(  new EventoTeclado() );
 				}
 			} );
 		} catch (Exception e) {
