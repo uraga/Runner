@@ -48,84 +48,51 @@ public class VentanaUsuario extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
-		JLabel lblDeustoRunner = new JLabel("Deusto Runner");
-		lblDeustoRunner.setForeground(Color.DARK_GRAY);
-		lblDeustoRunner.setFont(new Font("Impact", Font.BOLD | Font.ITALIC, 39));
-		
+		//Elementos de la ventana 
 		intrUsuario = new JTextField();
-		intrUsuario.setColumns(10);
-		
-		JLabel label = new JLabel("User:");
-		
-		JLabel label_1 = new JLabel("Password:");
-		
 		intrContrasena = new JPasswordField();
+		JLabel lblUsuario = new JLabel("Usuario:");
+		JLabel lblContrasena= new JLabel("Contraseña:");
+		JButton btnEntrar = new JButton("Entrar");
+		JButton btnRegistrarse = new JButton("Registrarse");
+		JButton btnAtras = new JButton("Atras");
 		
-		JButton button = new JButton("Log-In");
+		//Posiciones en ventana
+		lblUsuario.setBounds(50, 50, 100, 30);
+		contentPane.add(lblUsuario);
+		intrUsuario.setBounds(170, 50, 100, 30);
+		contentPane.add(intrUsuario);
+		lblContrasena.setBounds(50, 120, 100, 30);
+		contentPane.add(lblContrasena);
+		intrContrasena.setBounds(170, 120, 100, 30);
+		contentPane.add(intrContrasena);
+		btnEntrar.setBounds(100, 200, 70, 40);
+		contentPane.add(btnEntrar);
+		btnRegistrarse.setBounds(200, 200, 70, 40);
+		contentPane.add(btnRegistrarse);
+		btnAtras.setBounds(300, 200, 70, 40);
+		contentPane.add(btnAtras);
 		
-		JButton button_1 = new JButton("Sign-Up");
-		button_1.addActionListener(new ActionListener() {
+		//Eventos
+		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCrearUsuario window2 = new VentanaCrearUsuario();
-				window2.setVisible(true);
+				VentanaCrearUsuario vUsuario = new VentanaCrearUsuario();
+				vUsuario.setVisible(true);
 				dispose();
 			}
 		});
+	
 		
-		JButton button_2 = new JButton("Exit");
-		button_2.addActionListener(new ActionListener() {
+		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);}
-			});
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(56)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(label, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(intrUsuario, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(intrContrasena, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblDeustoRunner, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(81)
-							.addComponent(button, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-							.addGap(29)
-							.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-							.addGap(32)
-							.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(49, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblDeustoRunner, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(intrUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(19)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(3)
-							.addComponent(label_1))
-						.addComponent(intrContrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(35)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button)
-						.addComponent(button_1)
-						.addComponent(button_2))
-					.addGap(38))
-		);
-		contentPane.setLayout(gl_contentPane);
+				VentanaMenu vMenu = new VentanaMenu();
+				vMenu.setVisible(true);
+				dispose();
+			}
+				
+		});
+		
 	}
 }

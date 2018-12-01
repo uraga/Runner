@@ -43,41 +43,36 @@ public class VentanaMenu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//Elementos de la ventana
 		JButton btnJugar = new JButton("JUGAR");
-		btnJugar.setForeground(Color.BLACK);
-		btnJugar.setBackground(Color.WHITE);
+		JButton btnOpciones = new JButton("OPCIONES");
+		JButton btnCreditos = new JButton("CREDITOS");
+		JButton btnExit = new JButton("<--");
+		JLabel lblRunner = new JLabel("RUNNER");
+		JButton btnTrofeos = new JButton();
+		JButton btnTienda = new JButton();
+		JButton btnAjustes = new JButton();
+		JButton btnIniciarSesion = new JButton();
+		
+		//Posición en la ventana
 		btnJugar.setBounds(129, 66, 177, 51);
 		contentPane.add(btnJugar);
-		
-		JButton btnOpciones = new JButton("OPCIONES");
 		btnOpciones.setBounds(129, 121, 177, 51);
 		contentPane.add(btnOpciones);
-		
-		JButton btnCreditos = new JButton("CREDITOS");
 		btnCreditos.setBounds(129, 176, 177, 51);
 		contentPane.add(btnCreditos);
-		
-		JButton btnExit = new JButton("<--");
 		btnExit.setBounds(393, 6, 51, 29);
 		contentPane.add(btnExit);
-		
-		JLabel lblRunner = new JLabel("RUNNER");
 		lblRunner.setFont(new Font("Lucida Grande", Font.PLAIN, 22));
 		lblRunner.setBounds(181, 16, 103, 38);
 		contentPane.add(lblRunner);
-		
-		JButton btnTrofeos = new JButton();
 		btnTrofeos.setBounds(393, 66, 51, 56);
 		contentPane.add(btnTrofeos);
-		
-		JButton btnTienda = new JButton();
-		btnTienda.setIcon(new ImageIcon(VentanaMenu.class.getResource("/Proyecto/carrito.png")));
 		btnTienda.setBounds(393, 121, 51, 56);
 		contentPane.add(btnTienda);
-		
-		JButton btnAjustes = new JButton();
-		btnAjustes.setIcon(new ImageIcon(VentanaMenu.class.getResource("/Proyecto/ajustes.png")));
 		btnAjustes.setBounds(393, 176, 51, 56);
 		contentPane.add(btnAjustes);
+		btnIniciarSesion.setBounds(20, 220, 51, 56);
+		contentPane.add(btnIniciarSesion);
 	}
 }
