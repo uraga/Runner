@@ -22,9 +22,9 @@ public class Suelo {
 	
 	public Suelo(int ancho, Personaje personaje) {
 		this.personaje = personaje;
-		suelo1 = Img.getImagen("data/suelo1.png");
-		suelo2 = Img.getImagen("data/suelo2.png");
-		suelo3 = Img.getImagen("data/suelo3.png");
+		suelo1 = Img.getImagen("data/land1.png");
+		suelo2 = Img.getImagen("data/land2.png");
+		suelo3 = Img.getImagen("data/land3.png");
 		int numeroImagen = ancho / suelo1.getWidth() + 2;
 		listaSuelos = new ArrayList<ImagenSuelo>();
 		for(int i=0; i < numeroImagen; i++) {

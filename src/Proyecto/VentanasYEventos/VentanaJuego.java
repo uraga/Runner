@@ -19,11 +19,12 @@ public class VentanaJuego extends JFrame{
 	}
 	
 	public void inicioJuego() {
-		setVisible(true);
 		panelJuego.inicioJuego();
 	}
 	public static void main(String args[]) {
-		(new VentanaJuego()).inicioJuego();
+		VentanaJuego vj = new VentanaJuego();
+		vj.setVisible(true);
+		vj.inicioJuego();
 	}
 
 }

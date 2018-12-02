@@ -26,10 +26,11 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 	private Suelo suelo;
 	private Personaje personaje;
 	private GestorObstaculos gestorObs;
-	private boolean teclaPulsada;
-	private int estadoJuego = INICIO_JUEGO;
-	private int i = 0;
 	private Thread hilo;
+	
+	private boolean teclaPulsada;
+	
+	private int estadoJuego = INICIO_JUEGO;
 	
 	private BufferedImage btnReiniciarImg; 
 	private BufferedImage btnFinImg;
@@ -38,8 +39,8 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 		personaje = new Personaje();
 		suelo = new Suelo(VentanaJuego.WIDTH, personaje);
 		personaje.setVelocidadX(4);
-		btnReiniciarImg = Img.getImagen("data/btn_reiniciar.png");
-		btnFinImg = Img.getImagen("data/texto_fin.png");
+		btnReiniciarImg = Img.getImagen("data/replay_button.png");
+		btnFinImg = Img.getImagen("data/gameover_text.png");
 		gestorObs = new GestorObstaculos(personaje);
 	}
 	
@@ -50,7 +51,6 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 	
 	public void actualizarJuego() {
 		if(estadoJuego == JUGANDO_JUEGO) {
-			//nubes.actualizarNubes();
 			suelo.actualizarSuelo();
 			personaje.mover();
 			gestorObs.actualizar();
@@ -94,17 +94,22 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 		int msSleep;
 		int nanoSleep;
 		
+		long endProcessGame;
+		long lag = 0;
+		
 		while(true) {
 			actualizarJuego();
 			repaint();
+			endProcessGame = System.nanoTime();
 			transcurrido = Math.abs(tiempoAnterior + msPorImg - System.nanoTime());
 			msSleep = (int) Math.abs(transcurrido / 1000000);
 			nanoSleep = (int) (transcurrido % 1000000);
 			if(msSleep <= 0) {
 				tiempoAnterior = System.nanoTime();
+				continue;
 			}
 			try {
-				Thread.sleep(msSleep, nanoSleep);;
+				Thread.sleep(msSleep, nanoSleep);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -112,16 +117,6 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 		}
 	}
 	
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
-	private void reiniciarJuego() {
-		gestorObs.reiniciar();
-		personaje.muerto(false);
-		personaje.reiniciar();
-	}
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(!teclaPulsada) {
@@ -148,7 +143,7 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 			}
 		}
 	}
-
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		teclaPulsada = false;
@@ -158,5 +153,19 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 			}
 		}
 	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	private void reiniciarJuego() {
+		gestorObs.reiniciar();
+		personaje.muerto(false);
+		personaje.reiniciar();
+	}
+
+	
+
+	
 
 }

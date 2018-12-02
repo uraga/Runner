@@ -5,7 +5,6 @@ import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -13,10 +12,8 @@ import java.net.URL;
 import Proyecto.VentanasYEventos.Animacion;
 import Proyecto.VentanasYEventos.Img;
 
-public class Personaje implements Serializable {
+public class Personaje {
 	
-	
-	private static final long serialVersionUID = 1L;
 	private static final int POS_Y = 80;
 	private static final float GRAVEDAD = 0.4f;
 	private static final int CORRIENDO = 0;
@@ -46,18 +43,18 @@ public class Personaje implements Serializable {
 		posY = POS_Y;
 		rectanguloChoque = new Rectangle();
 		corriendoAnim = new Animacion(90);
-		corriendoAnim.anyadirImagen(Img.getImagen("data/personaje1.png"));
-		corriendoAnim.anyadirImagen(Img.getImagen("data/personaje2.png"));
-		saltando = Img.getImagen("data/personaje3.png");
+		corriendoAnim.anyadirImagen(Img.getImagen("data/main-character1.png"));
+		corriendoAnim.anyadirImagen(Img.getImagen("data/main-character2.png"));
+		saltando = Img.getImagen("data/main-character3.png");
 		agachadoAnim = new Animacion(90);
-		agachadoAnim.anyadirImagen(Img.getImagen("data/personaje5.png"));
-		agachadoAnim.anyadirImagen(Img.getImagen("data/personaje6.png"));
-		muerto = Img.getImagen("data/personaje4.png");
+		agachadoAnim.anyadirImagen(Img.getImagen("data/main-character5.png"));
+		agachadoAnim.anyadirImagen(Img.getImagen("data/main-character6.png"));
+		muerto = Img.getImagen("data/main-character4.png");
 		
 		try {
-			sonidoSalto =  Applet.newAudioClip(new URL("file","","data/salto.wav"));
-			sonidoChoque =  Applet.newAudioClip(new URL("file","","data/choque.wav"));
-			sonidoSubeVelocidad =  Applet.newAudioClip(new URL("file","","data/subeVel.wav"));
+			sonidoSalto =  Applet.newAudioClip(new URL("file","","data/jump.wav"));
+			sonidoChoque =  Applet.newAudioClip(new URL("file","","data/dead.wav"));
+			sonidoSubeVelocidad =  Applet.newAudioClip(new URL("file","","data/scoreup.wav"));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

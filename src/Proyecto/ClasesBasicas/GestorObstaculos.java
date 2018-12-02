@@ -54,8 +54,9 @@ public class GestorObstaculos {
 	
 	public boolean choca() {
 		for(Obstaculo o : obstaculos) {
-			if(personaje.getBorde().intersects(o.getBorde()));
-			return true;
+			if(personaje.getBorde().intersects(o.getBorde())) {
+				return true;
+			}
 		}
 		return false;
 	}
