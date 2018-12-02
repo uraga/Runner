@@ -1,15 +1,21 @@
 package Proyecto.VentanasYEventos;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Img {
-	public static java.net.URL getURLRecurso( String nomRecImg ) {
-		java.net.URL recurso = null;
+	
+	public static BufferedImage getImagen(String path) {
+		BufferedImage img = null;
 		try {
-			recurso = Img.class.getResource( nomRecImg ).toURI().toURL();
-		} catch (Exception e) {
-			System.err.println( "Recurso incorrecto: " + nomRecImg + " no existe en " + Img.class.getPackage() );
+			img = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return recurso;
+		return img;
 	}
 
 }

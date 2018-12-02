@@ -1,5 +1,5 @@
 package Proyecto.ClasesBasicas;
 
-public enum TipoRunner {
+public enum TipoPersonaje {
 	Dino, Rex, Alien, Canguro, Zombie 
 }
