@@ -8,104 +8,112 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import Proyecto.ClasesBasicas.GestorObstaculos;
-import Proyecto.ClasesBasicas.Personaje;
-import Proyecto.ClasesBasicas.Suelo;
+import objetosJuego.GestorObstaculos;
+import objetosJuego.Nubes;
+import objetosJuego.Personaje;
+import objetosJuego.Suelo;
 
-public class PanelJuego extends JPanel implements Runnable, KeyListener{
-	
+
+public class PanelJuego extends JPanel implements Runnable, KeyListener {
+
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int INICIO_JUEGO = 0;
-	private static final int JUGANDO_JUEGO = 1;
+	private static final int INICIANDO_JUEGO = 0;
+	private static final int JUGANDO = 1;
 	private static final int JUEGO_TERMINADO = 2;
 	
 	private Suelo suelo;
 	private Personaje personaje;
 	private GestorObstaculos gestorObs;
-	private Thread hilo;
-	
+	private Nubes nubes;
+	private Thread t;
+
 	private boolean teclaPulsada;
-	
-	private int estadoJuego = INICIO_JUEGO;
-	
-	private BufferedImage btnReiniciarImg; 
-	private BufferedImage btnFinImg;
-	
+
+	private int estadoJuego = INICIANDO_JUEGO;
+
+	private BufferedImage btnReiniciar;
+	private BufferedImage btnGameOver;
+
 	public PanelJuego() {
 		personaje = new Personaje();
-		suelo = new Suelo(VentanaJuego.WIDTH, personaje);
-		personaje.setVelocidadX(4);
-		btnReiniciarImg = Img.getImagen("data/replay_button.png");
-		btnFinImg = Img.getImagen("data/gameover_text.png");
+		suelo = new Suelo(VentanaJuego.ANCHO_PANTALLA, personaje);
+		personaje.setVelX(4);
+		btnReiniciar = Img.getResouceImage("data/replay_button.png");
+		btnGameOver = Img.getResouceImage("data/gameover_text.png");
 		gestorObs = new GestorObstaculos(personaje);
+		nubes = new Nubes(VentanaJuego.ANCHO_PANTALLA, personaje);
 	}
-	
+
 	public void inicioJuego() {
-		hilo = new Thread(this);
-		hilo.start();
+		t = new Thread(this);
+		t.start();
 	}
-	
+
 	public void actualizarJuego() {
-		if(estadoJuego == JUGANDO_JUEGO) {
-			suelo.actualizarSuelo();
-			personaje.mover();
+		if (estadoJuego == JUGANDO) {
+			nubes.actualizar();
+			suelo.actualizar();
+			personaje.actualizar();
 			gestorObs.actualizar();
-			if(gestorObs.choca()) {
-				personaje.activarSonidoChoque();
+			if (gestorObs.choca()) {
+				personaje.sonidoMuere();
 				estadoJuego = JUEGO_TERMINADO;
 				personaje.muerto(true);
 			}
-		} 
+		}
 	}
-	
-	public void dibujar(Graphics g) {
+
+	public void paint(Graphics g) {
 		g.setColor(Color.decode("#f7f7f7"));
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
-		switch(estadoJuego) {
-		case INICIO_JUEGO:
+
+		switch (estadoJuego) {
+		case INICIANDO_JUEGO:
 			personaje.dibujar(g);
 			break;
-		case JUGANDO_JUEGO:
+		case JUGANDO:
 		case JUEGO_TERMINADO:
+			nubes.dibujar(g);
 			suelo.dibujar(g);
 			gestorObs.dibujar(g);
 			personaje.dibujar(g);
 			g.setColor(Color.BLACK);
-			g.drawString("P" + personaje.puntuacion, 500, 20);
-			if(estadoJuego == JUEGO_TERMINADO) {
-				g.drawImage(btnFinImg, 200, 30, null);
-				g.drawImage(btnReiniciarImg, 283, 50, null);
+			g.drawString("HI " + personaje.puntuacion, 500, 20);
+			if (estadoJuego == JUEGO_TERMINADO) {
+				g.drawImage(btnGameOver, 200, 30, null);
+				g.drawImage(btnReiniciar, 283, 50, null);
 			}
 			break;
 		}
 	}
-	
+
 	@Override
 	public void run() {
+
 		int fps = 100;
-		long msPorImg = 1000 * 1000000 / fps;
-		long tiempoAnterior = 0;
-		long transcurrido;
+		long msPerFrame = 1000 * 1000000 / fps;
+		long lastTime = 0;
+		long elapsed;
+		
 		int msSleep;
 		int nanoSleep;
-		
+
 		long endProcessGame;
 		long lag = 0;
-		
-		while(true) {
+
+		while (true) {
 			actualizarJuego();
 			repaint();
 			endProcessGame = System.nanoTime();
-			transcurrido = Math.abs(tiempoAnterior + msPorImg - System.nanoTime());
-			msSleep = (int) Math.abs(transcurrido / 1000000);
-			nanoSleep = (int) (transcurrido % 1000000);
-			if(msSleep <= 0) {
-				tiempoAnterior = System.nanoTime();
+			elapsed = Math.abs(lastTime + msPerFrame - System.nanoTime());
+			msSleep = (int) Math.abs(elapsed / 1000000);
+			nanoSleep = (int) (elapsed % 1000000);
+			if (msSleep <= 0) {
+				lastTime = System.nanoTime();
 				continue;
 			}
 			try {
@@ -113,49 +121,52 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			tiempoAnterior = System.nanoTime();
+			lastTime = System.nanoTime();
 		}
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(!teclaPulsada) {
+		if (!teclaPulsada) {
 			teclaPulsada = true;
 			switch (estadoJuego) {
-			case INICIO_JUEGO:
-				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-					estadoJuego = JUGANDO_JUEGO;
+			case INICIANDO_JUEGO:
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					estadoJuego = JUGANDO;
 				}
 				break;
-			case JUGANDO_JUEGO:
-				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			case JUGANDO:
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					personaje.saltar();
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					personaje.agachado(true);
+					personaje.agacharse(true);
 				}
 				break;
 			case JUEGO_TERMINADO:
-				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-					estadoJuego = JUGANDO_JUEGO;
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					estadoJuego = JUGANDO;
 					reiniciarJuego();
 				}
 				break;
+
 			}
 		}
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		teclaPulsada = false;
-		if(estadoJuego == JUGANDO_JUEGO) {
-			if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-				personaje.agachado(false);
+		if (estadoJuego == JUGANDO) {
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				personaje.agacharse(false);
 			}
 		}
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void reiniciarJuego() {
@@ -163,9 +174,5 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener{
 		personaje.muerto(false);
 		personaje.reiniciar();
 	}
-
-	
-
-	
 
 }

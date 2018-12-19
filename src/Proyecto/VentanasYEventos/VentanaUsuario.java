@@ -1,16 +1,11 @@
 package Proyecto.VentanasYEventos;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -19,6 +14,10 @@ import java.awt.event.ActionEvent;
 
 public class VentanaUsuario extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JTextField intrUsuario;
 	public static JPasswordField intrContrasena;
@@ -78,8 +77,8 @@ public class VentanaUsuario extends JFrame {
 		//Eventos
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCrearUsuario vUsuario = new VentanaCrearUsuario();
-				vUsuario.setVisible(true);
+				VentanaCrearUsuario vcu = new VentanaCrearUsuario();
+				vcu.setVisible(true);
 				dispose();
 			}
 		});

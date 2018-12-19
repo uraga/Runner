@@ -5,34 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Animacion {
-	
+
 	private List<BufferedImage> lista;
-	private long tiempoActual;
-	private int imagenActual = 0;
-	private long tiempoAnterior;
-	
-	public Animacion(int tiempoActual) {
-		this.tiempoActual = tiempoActual;
+	private long deltaTime;
+	private int currentFrame = 0;
+	private long previousTime;
+
+	public Animacion(int deltaTime) {
+		this.deltaTime = deltaTime;
 		lista = new ArrayList<BufferedImage>();
-		tiempoAnterior = 0;
+		previousTime = 0;
 	}
-	
-	public void actualizarImagen() {
-		if (System.currentTimeMillis() - tiempoAnterior >= tiempoActual) {
-			imagenActual++;
-			if (imagenActual >= lista.size()) {
-				imagenActual = 0;
+
+	public void updateFrame() {
+		if (System.currentTimeMillis() - previousTime >= deltaTime) {
+			currentFrame++;
+			if (currentFrame >= lista.size()) {
+				currentFrame = 0;
 			}
-			tiempoAnterior = System.currentTimeMillis();
+			previousTime = System.currentTimeMillis();
 		}
 	}
-	
-	public void anyadirImagen(BufferedImage imagen) {
-		lista.add(imagen);
+
+	public void addFrame(BufferedImage image) {
+		lista.add(image);
 	}
-	
-	public BufferedImage getImagen() {
-		return lista.get(imagenActual);
+
+	public BufferedImage getFrame() {
+		return lista.get(currentFrame);
 	}
 
 }

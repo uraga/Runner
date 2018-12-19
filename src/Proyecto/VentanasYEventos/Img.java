@@ -8,14 +8,14 @@ import javax.imageio.ImageIO;
 
 public class Img {
 	
-	public static BufferedImage getImagen(String path) {
+	public static BufferedImage getResouceImage(String path) {
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File(path));
+		    img = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return img;
 	}
-
+	
 }
