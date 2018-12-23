@@ -3,7 +3,11 @@ package Proyecto.Datos;
 import java.io.Serializable;
 
 import Proyecto.VentanasYEventos.VentanaUsuario;
-
+/**
+ * CLASE PENDIENTE GESTION BD CON USUARIO
+ * @author JON URAGA, YERAY BELLANCO
+ *
+ */
 public class Usuario implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

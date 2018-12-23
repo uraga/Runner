@@ -17,7 +17,11 @@ import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
-
+/**
+ * CLASE PENDIENTE GESTION BD CON USUARIO
+ * @author JON URAGA, YERAY BELLANCO
+ *
+ */
 public class VentanaCrearUsuario extends JFrame {
 
 	/**

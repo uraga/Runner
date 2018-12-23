@@ -9,22 +9,27 @@ import java.util.Random;
 
 import Proyecto.VentanasYEventos.*;
 
+/**
+ * Clase que establece el juego del suelo
+ * @author JON URAGA, YERAY BELLANCO
+ *
+ */
 public class Suelo {
 	
-	public static final int LAND_POSY = 103;
-	
-	private List<ImagenSuelo> listaSuelo;
+	//ATRIBUTOS
+	public static final int LAND_POSY = 103; //Posicion vertical
+	private List<ImagenSuelo> listaSuelo; //lista del suelo
 	private BufferedImage suelo1;
 	private BufferedImage suelo2;
-	private BufferedImage suelo3;
-	
+	private BufferedImage suelo3;	
 	private Personaje personaje;
 	
+	//CONSTRUCTOR
 	public Suelo(int ancho, Personaje personaje) {
 		this.personaje = personaje;
-		suelo1 = Img.getResouceImage("data/land1.png");
-		suelo2 = Img.getResouceImage("data/land2.png");
-		suelo3 = Img.getResouceImage("data/land3.png");
+		suelo1 = Img.getResouceImage("utils/suelo1.png");
+		suelo2 = Img.getResouceImage("utils/suelo2.png");
+		suelo3 = Img.getResouceImage("utils/suelo3.png");
 		int numeroImagenSuelo = ancho / suelo1.getWidth() + 2;
 		listaSuelo = new ArrayList<ImagenSuelo>();
 		for(int i = 0; i < numeroImagenSuelo; i++) {
@@ -35,41 +40,57 @@ public class Suelo {
 		}
 	}
 	
+	/**
+	 * Metodo que actualiza el suelo en funcion avanza la partida
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void actualizar(){
 		Iterator<ImagenSuelo> itr = listaSuelo.iterator();
-		ImagenSuelo firstElement = itr.next();
-		firstElement.posX -= personaje.getVelX();
-		float previousPosX = firstElement.posX;
+		ImagenSuelo elemento = itr.next();
+		elemento.posX -= personaje.getVelX();
+		float posXAnterior = elemento.posX;
 		while(itr.hasNext()) {
 			ImagenSuelo element = itr.next();
-			element.posX = previousPosX + suelo1.getWidth();
-			previousPosX = element.posX;
+			element.posX = posXAnterior + suelo1.getWidth();
+			posXAnterior = element.posX;
 		}
-		if(firstElement.posX < -suelo1.getWidth()) {
-			listaSuelo.remove(firstElement);
-			firstElement.posX = previousPosX + suelo1.getWidth();
-			setImagenSuelo(firstElement);
-			listaSuelo.add(firstElement);
+		if(elemento.posX < -suelo1.getWidth()) {
+			listaSuelo.remove(elemento);
+			elemento.posX = posXAnterior + suelo1.getWidth();
+			setImagenSuelo(elemento);
+			listaSuelo.add(elemento);
 		}
 	}
 	
+	/**
+	 * Metodo que establece los tres tipo de suelo
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	private void setImagenSuelo(ImagenSuelo imagenSuelo) {
-		int typeLand = getTipoSuelo();
-		if(typeLand == 1) {
+		int tipoSuelo = getTipoSuelo();
+		if(tipoSuelo == 1) {
 			imagenSuelo.imagen = suelo1;
-		} else if(typeLand == 3) {
+		} else if(tipoSuelo == 3) {
 			imagenSuelo.imagen = suelo3;
 		} else {
 			imagenSuelo.imagen = suelo2;
 		}
 	}
 	
+	/**
+	 * Metodo que dibuja el suelo 
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void dibujar(Graphics g) {
 		for(ImagenSuelo imagenSuelo : listaSuelo) {
 			g.drawImage(imagenSuelo.imagen, (int) imagenSuelo.posX, LAND_POSY, null);
 		}
 	}
 	
+	/**
+	 * Metodo que elije entre los tres tipo de suelo
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	private int getTipoSuelo() {
 		Random r = new Random();
 		int tipo = r.nextInt(10);
@@ -82,6 +103,7 @@ public class Suelo {
 		}
 	}
 	
+	//CLASE INTERNA IMAGEN DEL SUELO (POS,IMAGEN)
 	private class ImagenSuelo {
 		float posX;
 		BufferedImage imagen;

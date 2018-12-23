@@ -8,17 +8,23 @@ import java.util.List;
 
 import Proyecto.VentanasYEventos.*;
 
+/**
+ * Clase para la visualizacion de nubes de fondo
+ * @author JON URAGA, YERAY BELLANCO
+ */
 
 public class Nubes {
-	private List<ImagenNube> listaNubes;
-	private BufferedImage nube;
 	
-	private Personaje personaje;
+	//ATRIBUTOS
+	private List<ImagenNube> listaNubes; //lista de nubes
+	private BufferedImage nube; //nube
+	private Personaje personaje; //personaje principal
 	
+	//CONSTRUCTOR
 	public Nubes(int ancho, Personaje personaje) {
 		this.personaje = personaje;
-		nube = Img.getResouceImage("data/cloud.png");
-		listaNubes = new ArrayList<ImagenNube>();
+		nube = Img.getResouceImage("utils/nube.png");
+		listaNubes = new ArrayList<ImagenNube>(); //ArrayList de nubes
 		
 		ImagenNube imagenNube = new ImagenNube();
 		imagenNube.posX = 0;
@@ -46,27 +52,40 @@ public class Nubes {
 		listaNubes.add(imagenNube);
 	}
 	
+	/**
+	 * Metodo de actualizacion de nubes
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void actualizar(){
 		Iterator<ImagenNube> itr = listaNubes.iterator();
-		ImagenNube firstElement = itr.next();
-		firstElement.posX -= personaje.getVelX()/8;
+		ImagenNube elemento = itr.next();
+		elemento.posX -= personaje.getVelX()/8;
 		while(itr.hasNext()) {
 			ImagenNube element = itr.next();
 			element.posX -= personaje.getVelX()/8;
 		}
-		if(firstElement.posX < -nube.getWidth()) {
-			listaNubes.remove(firstElement);
-			firstElement.posX = VentanaJuego.ANCHO_PANTALLA;
-			listaNubes.add(firstElement);
+		if(elemento.posX < -nube.getWidth()) {
+			listaNubes.remove(elemento);
+			elemento.posX = VentanaJuego.ANCHO_PANTALLA;
+			listaNubes.add(elemento);
 		}
 	}
 	
+	/**
+	 * Metodo para dibujar las nubes
+	 * @param g
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void dibujar(Graphics g) {
 		for(ImagenNube imgLand : listaNubes) {
 			g.drawImage(nube, (int) imgLand.posX, imgLand.posY, null);
 		}
 	}
 	
+	/**
+	 * Clase interna de la imagen de la nube
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	private class ImagenNube {
 		float posX;
 		int posY;

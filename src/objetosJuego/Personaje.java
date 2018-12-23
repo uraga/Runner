@@ -10,57 +10,62 @@ import java.net.URL;
 
 import Proyecto.VentanasYEventos.*;
 
+/**
+ * Clase para el personaje principal DINO
+ * @author JON URAGA, YERAY BELLANCO
+ */
 public class Personaje {
 
-	public static final int SUELO_POS_Y = 80;
-	public static final float GRAVEDAD = 0.4f;
-	
+	//CONSTANTES
+	public static final int SUELO_POS_Y = 80; //Posicion vertical del suelo
+	public static final float GRAVEDAD = 0.4f; 
 	private static final int CORRIENDO = 0;
 	private static final int SALTANDO = 1;
 	private static final int AGACHANDO = 2;
 	private static final int MUERTO = 3;
 	
-	private float posY;
-	private float posX;
-	private float velX;
-	private float velY;
-	private Rectangle rectangulo;
-	
-	public int puntuacion = 0;
-	
-	private int estado = CORRIENDO;
-	
+	//ATRIBUTOS
+	private float posY; //Posicion vertical del personaje
+	private float posX; //Posicion horizontal del personaje
+	private float velX; //Velocidad x del personaje
+	private float velY; //Velocidad y del personaje
+	private Rectangle rectangulo;	
+	public int puntuacion = 0;	//Puntuacion inicial
+	private int estado = CORRIENDO;	
+	// ---ANIMACION--- //
 	private Animacion corriendoAnim;
 	private BufferedImage saltando;
 	private Animacion agachadoAnim;
-	private BufferedImage muertoImg;
-	
+	private BufferedImage muertoImg;	
+	// ---SONIDO--- //
 	private AudioClip sonidoSalto;
 	private AudioClip sonidoMuerto;
 	private AudioClip sonidoPuntos;
 	
+	//CONSTRUCTOR
 	public Personaje() {
 		posX = 50;
 		posY = SUELO_POS_Y;
 		rectangulo = new Rectangle();
 		corriendoAnim = new Animacion(90);
-		corriendoAnim.addFrame(Img.getResouceImage("data/main-character1.png"));
-		corriendoAnim.addFrame(Img.getResouceImage("data/main-character2.png"));
-		saltando = Img.getResouceImage("data/main-character3.png");
+		corriendoAnim.addFrame(Img.getResouceImage("utils/dino1.png"));
+		corriendoAnim.addFrame(Img.getResouceImage("utils/dino2.png"));
+		saltando = Img.getResouceImage("utils/dino3.png");
 		agachadoAnim = new Animacion(90);
-		agachadoAnim.addFrame(Img.getResouceImage("data/main-character5.png"));
-		agachadoAnim.addFrame(Img.getResouceImage("data/main-character6.png"));
-		muertoImg = Img.getResouceImage("data/main-character4.png");
+		agachadoAnim.addFrame(Img.getResouceImage("utils/dino5.png"));
+		agachadoAnim.addFrame(Img.getResouceImage("utils/dino6.png"));
+		muertoImg = Img.getResouceImage("utils/dino4.png");
 		
 		try {
-			sonidoSalto =  Applet.newAudioClip(new URL("file","","data/jump.wav"));
-			sonidoMuerto =  Applet.newAudioClip(new URL("file","","data/dead.wav"));
-			sonidoPuntos =  Applet.newAudioClip(new URL("file","","data/scoreup.wav"));
+			sonidoSalto =  Applet.newAudioClip(new URL("file","","utils/salto.wav"));
+			sonidoMuerto =  Applet.newAudioClip(new URL("file","","utils/sonidoMuerte.wav"));
+			sonidoPuntos =  Applet.newAudioClip(new URL("file","","utils/sumarPuntos.wav"));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	//GET Y SET
 	public float getVelX() {
 		return velX;
 	}
@@ -69,6 +74,12 @@ public class Personaje {
 		this.velX = velX;
 	}
 	
+	
+	/**
+	 * Metodo que construye el personaje
+	 * @param g
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void dibujar(Graphics g) {
 		switch(estado) {
 			case CORRIENDO:
@@ -84,11 +95,13 @@ public class Personaje {
 				g.drawImage(muertoImg, (int) posX, (int) posY, null);
 				break;
 		}
-//		Rectangle bound = getBound();
-//		g.setColor(Color.RED);
-//		g.drawRect(bound.x, bound.y, bound.width, bound.height);
+
 	}
 	
+	/**
+	 * Metodo que actualiza el personaje segun va avanzando
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void actualizar() {
 		corriendoAnim.updateFrame();
 		agachadoAnim.updateFrame();
@@ -103,6 +116,10 @@ public class Personaje {
 		}
 	}
 	
+	/**
+	 * Metodo de salto del personaje
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void saltar() {
 		if(posY >= SUELO_POS_Y) {
 			if(sonidoSalto != null) {
@@ -114,6 +131,10 @@ public class Personaje {
 		}
 	}
 	
+	/**
+	 * Metodo de agacharse del personaje
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void agacharse(boolean isDown) {
 		if(estado == SALTANDO) {
 			return;
@@ -124,6 +145,8 @@ public class Personaje {
 			estado = CORRIENDO;
 		}
 	}
+	
+	///RECTANGULO///
 	
 	public Rectangle getBound() {
 		rectangulo = new Rectangle();
@@ -141,6 +164,8 @@ public class Personaje {
 		return rectangulo;
 	}
 	
+	///MUERTE //////
+	
 	public void muerto(boolean isDeath) {
 		if(isDeath) {
 			estado = MUERTO;
@@ -153,10 +178,20 @@ public class Personaje {
 		posY = SUELO_POS_Y;
 	}
 	
+	///SONIDO///
+	
+	/**
+	 * Sonido al morir
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void sonidoMuere() {
 		sonidoMuerto.play();
 	}
 	
+	/**
+	 * Sonido al sumar puntos
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void sumarPuntos() {
 		puntuacion += 20;
 		if(puntuacion % 100 == 0) {
