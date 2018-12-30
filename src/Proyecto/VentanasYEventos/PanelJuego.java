@@ -84,6 +84,7 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 			g.setColor(Color.BLACK);
 			g.drawString("HI " + personaje.puntuacion, 500, 20);
 			if (estadoJuego == JUEGO_TERMINADO) {
+				System.out.println("Puntuación "+ personaje.puntuacion);
 				g.drawImage(btnGameOver, 200, 30, null);
 				g.drawImage(btnReiniciar, 283, 50, null);
 			}
