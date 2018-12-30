@@ -13,49 +13,59 @@ import objetosJuego.Nubes;
 import objetosJuego.Personaje;
 import objetosJuego.Suelo;
 
+/**
+ * Clase que implementa los graficos y la interfaz del teclado (salto y agacharse)
+ * @author JON URAGA, YERAY BELLANCO
+ *
+ */
 
 public class PanelJuego extends JPanel implements Runnable, KeyListener {
 
-	
-	/**
-	 * 
-	 */
+	//CONSTANTES
 	private static final long serialVersionUID = 1L;
 	private static final int INICIANDO_JUEGO = 0;
 	private static final int JUGANDO = 1;
 	private static final int JUEGO_TERMINADO = 2;
+		
+	//ATRIBUTOS
+	private Suelo suelo; //suelo del juego
+	private Personaje personaje; //personaje principal del juego - DINO
+	private GestorObstaculos gestorObs; //Gestor de los obstaculos del juegp
+	private Nubes nubes; //nubes de fondo
+	private Thread t; //Hilo
+	private boolean teclaPulsada; //registro de la tecla pulsada por parte del usuario
+	private int estadoJuego = INICIANDO_JUEGO; //Comienzo del juego
+	private BufferedImage btnReiniciar; //Reinicio de partida
+	private BufferedImage btnGameOver; //Fin de partida
+
 	
-	private Suelo suelo;
-	private Personaje personaje;
-	private GestorObstaculos gestorObs;
-	private Nubes nubes;
-	private Thread t;
-
-	private boolean teclaPulsada;
-
-	private int estadoJuego = INICIANDO_JUEGO;
-
-	private BufferedImage btnReiniciar;
-	private BufferedImage btnGameOver;
-
+	//CONSTRUCTOR
 	public PanelJuego() {
-		personaje = new Personaje();
-		suelo = new Suelo(VentanaJuego.ANCHO_PANTALLA, personaje);
-		personaje.setVelX(4);
-		btnReiniciar = Img.getResouceImage("data/replay_button.png");
-		btnGameOver = Img.getResouceImage("data/gameover_text.png");
-		gestorObs = new GestorObstaculos(personaje);
-		nubes = new Nubes(VentanaJuego.ANCHO_PANTALLA, personaje);
+		personaje = new Personaje(); //Creamos dino
+		suelo = new Suelo(VentanaJuego.ANCHO_PANTALLA, personaje); //Creamos suelo
+		personaje.setVelX(4); //Velocidad
+		btnReiniciar = Img.getResouceImage("utils/botonReplay.png"); //Boton
+		btnGameOver = Img.getResouceImage("utils/gameOver.png"); //Boton
+		gestorObs = new GestorObstaculos(personaje); //Obstaculos
+		nubes = new Nubes(VentanaJuego.ANCHO_PANTALLA, personaje); //Nubes de fondo
 	}
 
+	/**
+	 * Hilo que da comienzo al juego
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void inicioJuego() {
 		t = new Thread(this);
 		t.start();
 	}
 
+	/**
+	 * Metodo para actualizar los graficos del juego
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void actualizarJuego() {
 		if (estadoJuego == JUGANDO) {
-			nubes.actualizar();
+			nubes.actualizar(); 
 			suelo.actualizar();
 			personaje.actualizar();
 			gestorObs.actualizar();
@@ -67,6 +77,10 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
+	/**
+	 * Metodo que construye los graficos del juego
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	public void paint(Graphics g) {
 		g.setColor(Color.decode("#f7f7f7"));
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -82,7 +96,7 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 			gestorObs.dibujar(g);
 			personaje.dibujar(g);
 			g.setColor(Color.BLACK);
-			g.drawString("HI " + personaje.puntuacion, 500, 20);
+			g.drawString("Puntuacion: " + personaje.puntuacion, 500, 20);
 			if (estadoJuego == JUEGO_TERMINADO) {
 				System.out.println("Puntuación "+ personaje.puntuacion);
 				g.drawImage(btnGameOver, 200, 30, null);
@@ -92,29 +106,32 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
+	/**
+	 * Metodo run del hilo
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	@Override
 	public void run() {
 
+		//Atributos
 		int fps = 100;
-		long msPerFrame = 1000 * 1000000 / fps;
-		long lastTime = 0;
-		long elapsed;
-		
+		long msPorFrame = 1000 * 1000000 / fps;
+		long tiempoFinal = 0;
+		long tiempoTranscurrido;		
 		int msSleep;
 		int nanoSleep;
-
-		long endProcessGame;
-		long lag = 0;
+		long terminarProceso;
+		long retardo = 0;
 
 		while (true) {
 			actualizarJuego();
 			repaint();
-			endProcessGame = System.nanoTime();
-			elapsed = Math.abs(lastTime + msPerFrame - System.nanoTime());
-			msSleep = (int) Math.abs(elapsed / 1000000);
-			nanoSleep = (int) (elapsed % 1000000);
+			terminarProceso = System.nanoTime();
+			tiempoTranscurrido = Math.abs(tiempoFinal + msPorFrame - System.nanoTime());
+			msSleep = (int) Math.abs(tiempoTranscurrido / 1000000);
+			nanoSleep = (int) (tiempoTranscurrido % 1000000);
 			if (msSleep <= 0) {
-				lastTime = System.nanoTime();
+				tiempoFinal = System.nanoTime();
 				continue;
 			}
 			try {
@@ -122,10 +139,14 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			lastTime = System.nanoTime();
+			tiempoFinal = System.nanoTime();
 		}
 	}
 
+	/**
+	 * Metodo que registra cuando el usuario da al espacio para hacer saltar el personaje.
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (!teclaPulsada) {
@@ -154,6 +175,10 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
+	/**
+	 * Metodo que registra cuando el usuario da a la flecha de abajo para agachar el personaje.
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		teclaPulsada = false;
@@ -170,6 +195,10 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 
 	}
 
+	/**
+	 * Reinicia el juego, da comienzo a una nueva partida
+	 * @author JON URAGA, YERAY BELLANCO
+	 */
 	private void reiniciarJuego() {
 		gestorObs.reiniciar();
 		personaje.muerto(false);

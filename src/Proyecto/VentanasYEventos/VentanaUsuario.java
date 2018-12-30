@@ -12,6 +12,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * CLASE PENDIENTE GESTION BD CON USUARIO
+ * @author JON URAGA, YERAY BELLANCO
+ *
+ */
 public class VentanaUsuario extends JFrame {
 
 	/**
