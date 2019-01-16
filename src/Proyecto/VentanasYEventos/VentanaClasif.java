@@ -51,7 +51,9 @@ public class VentanaClasif extends JFrame {
 				{ "32", "Brawler", "780"},
 				{ "25", "Poco97", "640"},
 				{ "7", "Leon32", "400"},
-				{ "50", "DjMariio", "220"}
+				{ "50", "DjMariio", "220"},
+				{ "3", "Hamza67", "160"},
+				{ "1", "Alexby", "40"}
 		};
 		
 		String [] columnas = { "Nivel", "Usuario", "Puntuacion" };
