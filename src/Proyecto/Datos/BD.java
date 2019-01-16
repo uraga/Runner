@@ -3,9 +3,11 @@ package Proyecto.Datos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Gestión BD
@@ -22,16 +24,19 @@ public class BD {
 	 * @param BDRUNNER.db
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	public static Connection conexionBD(String nombreBD) {
+	public static Connection conexionBD() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection con = DriverManager
-					.getConnection("jdbc:sqlite:" + "/Users/yerayb/git/Runner/src/Proyecto/Datos/BDRUNNER.db");
+			Connection con = DriverManager.getConnection( "jdbc:sqlite:" + "/Users/yerayb/git/Runner/src/Proyecto/Datos/BDRUNNER.db" );
+			log( Level.INFO, "Conectada base de datos", null );
 			return con;
 		} catch (ClassNotFoundException | SQLException e) {
+			log( Level.SEVERE, "Error en conexión a base de datos", null );
 			return null;
 		}
 	}
+
+	
 
 	/**
 	 * Crear tablas en la BD
@@ -43,9 +48,8 @@ public class BD {
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(30);
 			try {
-				statement.executeUpdate("create table usuario " + "(cod_usuario string" + ", nick string"
-						+ ", n_saltos integer" + ", mail string " + ", distancia double" + ", tiempo_juego double"
-						+ ", password string" + ")");
+				statement.executeUpdate( "create table usuario " + "(cod_usuario string" + ", usuario string" + ", nombre string" + ", apellido string" 
+						+ ", email string " + ", telefono integer" + "nivel integer" + ", distancia_max double" + ", password string" + ")" );
 			} catch (SQLException e) {
 			}
 			try {
@@ -83,6 +87,40 @@ public class BD {
 			return statement;
 		} catch (SQLException e) {
 			return null;
+		}
+	}
+	
+	public static boolean introducirUsuario ( Statement stat, String nombre, String apellido, String usuario, String password, String email, long telefono, int nivel ) {
+		String sentSQL = "";
+		try {
+			sentSQL = " insert into usuario values( " + "'" + nombre + "', " + "'" + apellido + "', " + "'" + usuario + "', " + "'" + password + "', " +  "'" + email + "', " + telefono + ", " + nivel;
+			stat.executeUpdate(sentSQL);
+			return true;
+		} catch ( SQLException e ) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean login ( Statement stat, Usuario user) {
+		String sentSQL = "";
+		try {
+			sentSQL = " select * from usuario where usuario= '" + user.getUsuario() + "' and password= '" + user.getContrasena() + "'";
+			ResultSet rs = stat.executeQuery(sentSQL);
+			if ( rs.next() ) {
+				if ( user.getContrasena().equals( rs.getString("password") ) ) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			rs.close();
+			log( Level.INFO, "BD\t" + sentSQL, null );
+			return false;
+		} catch ( Exception e) {
+			log( Level.SEVERE, "usuario no encontrado" , e );
+			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -123,10 +161,25 @@ public class BD {
 		} catch (SQLException e) {
 		}
 	}
+	
+	
+	private static Logger logger = null;
+	
+	private static void log(Level level, String msg, Throwable excepcion) {
+		if ( logger == null ) {
+			logger = Logger.getLogger( BD.class.getName() );
+			logger.setLevel( Level.ALL );
+		}
+		if ( excepcion == null ) {
+			logger.log( level, msg );
+		} else {
+			logger.log( level, msg, excepcion );
+		}
+	}
 
 	// Main de prueba
 	public static void main(String[] args) {
-		Connection conn = conexionBD("/Users/yerayb/git/Runner/src/Proyecto/Datos/BDRUNNER.db");
+		Connection conn = conexionBD();
 		Statement stat = CrearTablas(conn);
 		if (stat == null)
 			return;

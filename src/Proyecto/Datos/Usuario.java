@@ -96,25 +96,17 @@ public class Usuario implements Serializable{
 		this.nivel = nivel;
 	}
 	
+	public Usuario (String usuario, String contrasena) {
+		this.usuario = usuario;
+		this.contrasena = contrasena;
+	}
+	
 	@Override
 	public String toString() {
 		return "Usuario: " + usuario + "\nNivel: " + nivel + "\nNombre: " + nombre + " " + apellidos + 
 			"\nTeléfono: " + telefono + "\nTipo de usuario: " + tipo +
 			"\nEmail: " + email;
 	}
-
-	@SuppressWarnings("deprecation")
-	public boolean probarPass() {
-		usuario = VentanaUsuario.intrUsuario.getText();
-		contrasena = VentanaUsuario.intrContrasena.getText();
-		if(usuario.equals(usuario) && contrasena.equals(contrasena)) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
 			
 	}
 
