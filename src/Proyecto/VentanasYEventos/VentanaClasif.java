@@ -20,8 +20,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-import com.sun.org.apache.xpath.internal.functions.FuncBoolean;
-
 import Proyecto.Datos.Usuario;
 
 public class VentanaClasif extends JFrame {

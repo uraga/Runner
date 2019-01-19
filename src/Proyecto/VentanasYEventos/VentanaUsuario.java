@@ -98,7 +98,7 @@ public class VentanaUsuario extends JFrame {
 				userIntroducido = intrUsuario.getText();
 				passIntroducido =  new String( intrContrasena.getPassword() );
 				if (!userIntroducido.equals("") && passIntroducido.equals("")) {
-					Connection con = BD.conexionBD();
+					Connection con = BD.conexionBD("/Users/yerayb/git/Runner/src/Proyecto/Datos/RUNNERBD2.db");
 					Statement stat = null;
 					try {
 						stat = con.createStatement();
