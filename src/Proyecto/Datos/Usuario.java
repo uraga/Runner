@@ -18,7 +18,7 @@ public class Usuario implements Serializable{
 	public String apellidos;
 	public long telefono;
 	public int nivel;
-	public TipoUsuario tipo;
+	public long record;
 	
 	public String getNombre() {
 		return nombre;
@@ -52,14 +52,6 @@ public class Usuario implements Serializable{
 		this.nivel = nivel;
 	}
 
-	public TipoUsuario getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoUsuario tipo) {
-		this.tipo = tipo;
-	}
-
 	public String getUsuario() {
 		return usuario;
 	}
@@ -84,6 +76,14 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 	
+	public long getRecord() {
+		return record;
+	}
+	
+	public void setRecord( long record ) {
+		this.record = record;
+	}
+	
 	public Usuario(String usuario, String contrasena, String nombre, String apellidos, long telefono, TipoUsuario tipo, String email, int nivel) {
 		super();
 		this.usuario = usuario;
@@ -91,7 +91,6 @@ public class Usuario implements Serializable{
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.telefono = telefono;
-		this.tipo = tipo;
 		this.email = email;
 		this.nivel = nivel;
 	}
@@ -101,10 +100,16 @@ public class Usuario implements Serializable{
 		this.contrasena = contrasena;
 	}
 	
+	public Usuario ( String usuario, int nivel, long record ) {
+		this.usuario = usuario;
+		this.nivel = nivel;
+		this.record = record;
+	}
+	
 	@Override
 	public String toString() {
 		return "Usuario: " + usuario + "\nNivel: " + nivel + "\nNombre: " + nombre + " " + apellidos + 
-			"\nTeléfono: " + telefono + "\nTipo de usuario: " + tipo +
+			"\nTeléfono: " + telefono + "\nTipo de usuario: " + 
 			"\nEmail: " + email;
 	}
 			

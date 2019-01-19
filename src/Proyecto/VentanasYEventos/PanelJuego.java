@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import com.sun.javafx.font.Disposer;
+
 import objetosJuego.GestorObstaculos;
 import objetosJuego.Nubes;
 import objetosJuego.Personaje;
@@ -98,7 +100,6 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 			g.setColor(Color.BLACK);
 			g.drawString("Puntuacion: " + personaje.puntuacion, 500, 20);
 			if (estadoJuego == JUEGO_TERMINADO) {
-				System.out.println("Puntuación "+ personaje.puntuacion);
 				g.drawImage(btnGameOver, 200, 30, null);
 				g.drawImage(btnReiniciar, 283, 50, null);
 			}
