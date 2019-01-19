@@ -24,6 +24,7 @@ public class VentanaJuego extends JFrame {
 		setLocation(400, 200); //Posicion
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		//PANEL
 		panelJuego = new PanelJuego();

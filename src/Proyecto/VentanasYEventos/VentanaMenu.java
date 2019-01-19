@@ -35,14 +35,14 @@ public class VentanaMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 
 		// Elementos de la ventana
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaJuego v = new VentanaJuego();
-				v.setVisible(true);
-				
+				( new VentanaJuego() ).inicioJuego();
+				dispose();
 			}
 		});
 		JButton btnOpciones = new JButton("OPCIONES");

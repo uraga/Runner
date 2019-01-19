@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.sun.javafx.font.Disposer;
@@ -75,6 +76,9 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 				personaje.sonidoMuere();
 				estadoJuego = JUEGO_TERMINADO;
 				personaje.muerto(true);
+				JOptionPane.showMessageDialog(null, "Puntuacion: " + personaje.puntuacion);
+				VentanaMenu vMenu = new VentanaMenu();
+				vMenu.setVisible(true);
 			}
 		}
 	}
