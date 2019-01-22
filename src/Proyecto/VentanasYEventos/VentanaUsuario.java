@@ -1,14 +1,13 @@
 package Proyecto.VentanasYEventos;
 
-
+import java.awt.Color;
 import java.awt.EventQueue;
+
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Proyecto.Datos.BD;
-import Proyecto.Datos.Usuario;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -16,10 +15,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 
 /**
  * CLASE PENDIENTE GESTION BD CON USUARIO
@@ -58,6 +57,7 @@ public class VentanaUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaUsuario() {
+		setTitle( "Ventana de login" );
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -72,7 +72,6 @@ public class VentanaUsuario extends JFrame {
 		JLabel lblContrasena= new JLabel("Contraseña:");
 		JButton btnEntrar = new JButton("Entrar");
 		JButton btnRegistrarse = new JButton("Registrarse");
-		JButton btnAtras = new JButton("Atras");
 		
 		//Posiciones en ventana
 		lblUsuario.setBounds(50, 50, 100, 30);
@@ -87,8 +86,6 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(btnEntrar);
 		btnRegistrarse.setBounds(182, 200, 106, 40);
 		contentPane.add(btnRegistrarse);
-		btnAtras.setBounds(300, 200, 70, 40);
-		contentPane.add(btnAtras);
 		
 		//Eventos
 		
@@ -97,26 +94,22 @@ public class VentanaUsuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				userIntroducido = intrUsuario.getText();
 				passIntroducido =  new String( intrContrasena.getPassword() );
-				if (!userIntroducido.equals("") && passIntroducido.equals("")) {
-					Connection con = BD.conexionBD("/Users/yerayb/git/Runner/src/Proyecto/Datos/RUNNERBD2.db");
-					Statement stat = null;
-					try {
-						stat = con.createStatement();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-					Usuario user = new Usuario( userIntroducido, passIntroducido );
-					if ( BD.login(stat, user ) == true ) {
-						VentanaMenu vMenu = new VentanaMenu();
-						vMenu.setVisible(true);
+				Connection conn = BD.conexionBD( "RUNNERBD2.db" );
+				Statement stat = BD.usarCrearTablasBD( conn );
+				try {
+					String sentSQL = "select * from usuario where usuario= '" + userIntroducido + "' and password= '" + passIntroducido + "';";
+					ResultSet rs = stat.executeQuery(sentSQL);
+					if ( rs.next() ) {
+						JOptionPane.showMessageDialog( null, "Bienvenid@" + userIntroducido, " ", JOptionPane.INFORMATION_MESSAGE);
+						VentanaMenu ventanaMenu = new VentanaMenu();
+						ventanaMenu.setVisible( true );
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog( null, "Usuario o contraseña incorrectos" );
+						JOptionPane.showMessageDialog( null, "Usuario o contraseña incorrectos", " ", JOptionPane.INFORMATION_MESSAGE);
 					}
-				} else {
-					JOptionPane.showMessageDialog( null, "Debes rellenar todos los campos" );
+				} catch (SQLException e2) {
+					e2.printStackTrace();
 				}
-				
 			}
 		});
 		
@@ -126,16 +119,6 @@ public class VentanaUsuario extends JFrame {
 				vcu.setVisible(true);
 				dispose();
 			}
-		});
-	
-		
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaMenu vMenu = new VentanaMenu();
-				vMenu.setVisible(true);
-				dispose();
-			}
-				
 		});
 		
 	}

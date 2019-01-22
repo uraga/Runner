@@ -102,7 +102,7 @@ public class BD {
 			return false;
 		}
 	}
-	public static boolean login ( Statement stat, Usuario user) {
+	public static boolean selectUsuario ( Statement stat, Usuario user ) {
 		String sentSQL = "";
 		try {
 			sentSQL = " select * from usuario where usuario= '" + user.getUsuario() + "' and password= '" + user.getContrasena() + "'";
