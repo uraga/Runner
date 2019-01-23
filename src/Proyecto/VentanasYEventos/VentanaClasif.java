@@ -57,16 +57,14 @@ public class VentanaClasif extends JFrame {
 		setContentPane(contentPane);
 		ModeloTabla modelo = new ModeloTabla();
 		JTable clasificacion = new JTable( modelo );
-		clasificacion.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+		clasificacion.setDefaultRenderer(Integer.class, new DefaultTableCellRenderer() {
 			public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 				Component comp = super.getTableCellRendererComponent( table, value, isSelected, hasFocus, row, column );
-				if ( value instanceof Integer ) {
-					if (column == 2 || column == 4 ) {
-						((JLabel)comp).setHorizontalAlignment( JLabel.CENTER );
-					} else if ( column == 1 ) {
-						((JLabel)comp).setHorizontalAlignment( JLabel.LEFT );
-						comp.setBackground( Color.BLUE );
-					}
+				System.out.println(value + " " + value.getClass().getSimpleName());
+				((JLabel)comp).setHorizontalAlignment( JLabel.CENTER );
+				if ( column == 0 ) {
+					((JLabel)comp).setHorizontalAlignment( JLabel.LEFT );
+					((JLabel)comp).setBackground( Color.BLUE );
 				}
 				return comp;
 			}
@@ -91,7 +89,7 @@ public class VentanaClasif extends JFrame {
 		for ( int i=0 ; i < 4; i++) {
 			columna = clasificacion.getColumnModel().getColumn(i);
 			if ( i == 0) {
-				columna.setPreferredWidth(20);
+				columna.setPreferredWidth(10);
 			} else if ( i == 1) {
 				columna.setPreferredWidth(20);
 			} 
@@ -99,17 +97,17 @@ public class VentanaClasif extends JFrame {
 	}
 @SuppressWarnings("serial")
 class ModeloTabla extends AbstractTableModel {
-	String [] columnas = { "Posicion", "Nivel", "Usuario", "Puntuación" };
-	Class<?> clasesDeColumnas [] = { Integer.class, Integer.class, String.class, Integer.class};
+	String [] columnas = { "Pos.", "Nivel", "Usuario", "Puntuación" };
+	Class<?> clasesDeColumnas [] = { Integer.class, String.class, String.class, String.class};
 	Object [][] datos = {
-			{"1", "10", "Agapito99", "1020"},
-			{"2",  "43", "Bull", "840"},
-			{"3", "32", "Brawler", "780"},
-			{"4", "25", "Poco97", "640"},
-			{"5", "7", "Leon32", "400"},
-			{"6", "50", "DjMariio", "220"},
-			{"7", "3", "Hamza67", "160"},
-			{"8",  "1", "Alexby", "40"}
+			{1, "10", "Agapito99", "1020"},
+			{2,  "43", "Bull", "840"},
+			{3, "32", "Brawler", "780"},
+			{4, "25", "Poco97", "640"},
+			{5, "7", "Leon32", "400"},
+			{6, "50", "DjMariio", "220"},
+			{7, "3", "Hamza67", "160"},
+			{8,  "1", "Alexby", "40"}
 	};
 
 	@Override

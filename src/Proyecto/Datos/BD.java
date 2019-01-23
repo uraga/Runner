@@ -26,7 +26,7 @@ public class BD {
 	public static Connection conexionBD(String nombreBD) {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection con = DriverManager.getConnection("jdbc:sqlite:" + "/Users/yerayb/git/Runner/src/Proyecto/Datos/RUNNERBD2.db");
+			Connection con = DriverManager.getConnection("jdbc:sqlite:" + nombreBD);
 			log(Level.INFO, "Conectada base de datos " + nombreBD, null);
 			return con;
 		} catch (ClassNotFoundException | SQLException e) {
