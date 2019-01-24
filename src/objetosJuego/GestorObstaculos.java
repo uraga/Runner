@@ -63,7 +63,7 @@ public class GestorObstaculos {
 	 * Metodo que crea obstaculo
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	private Obstaculo crearObstaculo() {
+	public Obstaculo crearObstaculo() {
 		int tipo = r.nextInt(2);
 		if(tipo == 0) {
 			return new Cactus(personaje, 800, cactus1.getWidth() - 10, cactus1.getHeight() - 10, cactus1);

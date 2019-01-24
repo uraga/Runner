@@ -20,7 +20,9 @@ public class Nubes {
 	private BufferedImage nube; //nube
 	private Personaje personaje; //personaje principal
 	
-	//CONSTRUCTOR
+
+	
+	//CONSTRUCTOR PRINCIPAL
 	public Nubes(int ancho, Personaje personaje) {
 		this.personaje = personaje;
 		nube = Img.getResouceImage("utils/nube.png");
