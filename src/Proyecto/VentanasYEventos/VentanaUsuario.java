@@ -97,7 +97,7 @@ public class VentanaUsuario extends JFrame {
 				Connection conn = BD.conexionBD( "RUNNERBD2.db" );
 				Statement stat = BD.usarCrearTablasBD( conn );
 				try {
-					String sentSQL = "select * from usuario where usuario= '" + userIntroducido + "' and password= '" + passIntroducido + "';";
+					String sentSQL = "select * from usuario where cod_usuario= '" + userIntroducido + "' and password= '" + passIntroducido + "';";
 					ResultSet rs = stat.executeQuery(sentSQL);
 					if ( rs.next() ) {
 						JOptionPane.showMessageDialog( null, "Bienvenid@" + userIntroducido, " ", JOptionPane.INFORMATION_MESSAGE);
