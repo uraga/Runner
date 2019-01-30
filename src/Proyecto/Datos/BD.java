@@ -46,8 +46,8 @@ public class BD {
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(30); // poner timeout 30 msg
 			try {
-				statement.executeUpdate("create table usuario " + "(cod_usuario string" + ", usuario string"
-						+ ", nombre string" + ", apellido string" + ", email string " + ", telefono integer"
+				statement.executeUpdate("create table usuario " + "(cod_usuario string"
+						+ ", nombre string" + ", apellido string" + ", email string "
 						+ "nivel integer" + ", distancia_max double" + ", password string" + ")");
 			} catch (SQLException e) {
 			}
@@ -171,10 +171,10 @@ public class BD {
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
 	
-	private static Logger logger = null;
+	public static Logger logger = null;
 
 	
-	private static void log(Level level, String msg, Throwable excepcion) {
+	public static void log(Level level, String msg, Throwable excepcion) {
 		if (logger == null) { 
 			logger = Logger.getLogger(BD.class.getName()); 
 			logger.setLevel(Level.ALL); 
@@ -187,7 +187,7 @@ public class BD {
 	
 	// Main de prueba
 		public static void main(String[] args) {
-			Connection conn = conexionBD("/Users/yerayb/git/Runner/src/Proyecto/Datos/RUNNERBD2.db");
+			Connection conn = conexionBD("RUNNERBD2.bd");
 			Statement stat =  usarCrearTablasBD(conn);
 			if (stat == null)
 				return;

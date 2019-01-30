@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.sun.istack.internal.logging.Logger;
+
+import Proyecto.Datos.BD;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -14,6 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -121,17 +129,36 @@ public class VentanaCrearUsuario extends JFrame {
 		//Eventos
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);}
+				VentanaUsuario ventanaUsuario = new VentanaUsuario();
+				ventanaUsuario.setVisible(true);
+				dispose();
+			}
 		});
 		
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(comprobarMail(txtMail.getText())) {
-					//El email es correcto
-					//TODO seguir con el proceso de entrar
-				}	else if(!comprobarMail(txtMail.getText())) {
-					JOptionPane.showMessageDialog(null, "Formato de email incorrecto","Error", JOptionPane.WARNING_MESSAGE);
-				}	
+				String contra = new String( txtContrasena.getPassword() );
+				String confCont = new String( txtConfCont.getPassword() );
+				if ( txtApellido.getText().isEmpty() || contra.isEmpty() || confCont.isEmpty() || txtNombre.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtMail.getText().isEmpty() ) {
+					JOptionPane.showMessageDialog( null, "Debes rellenar todos los campos", "Error", JOptionPane.WARNING_MESSAGE );
+				} else if( !comprobarMail( txtMail.getText() ) ) {
+					JOptionPane.showMessageDialog( null, "Formato de email incorrecto", "Error", JOptionPane.WARNING_MESSAGE );
+				} else if ( !contra.equals( confCont ) ) {
+					JOptionPane.showMessageDialog( null, "Contraseña mal confirmada", "Error", JOptionPane.WARNING_MESSAGE );
+				} else {
+					// TODO Conectar a base de datos y meter los datos del usuario en la tabla usuario
+					Connection con = BD.conexionBD("RUNNERBD2.db");
+					Statement stat = BD.usarCrearTablasBD(con);
+					try {
+						String sentSQL = "insert into usuario values( '" + txtUsuario.getText() + "', '" + txtNombre.getText() + "', '" + txtApellido.getText() + "', '" + txtMail.getText() + "', 1,686686686, 0, '" + contra + "'" + ");";
+						stat.executeUpdate(sentSQL);
+						BD.log( Level.INFO, "BD añadida", null );
+					} catch (SQLException e2) {
+						e2.printStackTrace();
+						BD.log( Level.SEVERE, "Error en insert a BD", e2 );
+					}
+					BD.cerrarBD(con, stat);
+				}
 			}
 		});
 		
@@ -139,6 +166,10 @@ public class VentanaCrearUsuario extends JFrame {
 	
 	
 	//Código de control de datos 
+	/** Comprueba si el formato del email es válido
+	 * @param email email a comprobar
+	 * @return True si es correcto, False de lo contrario
+	 */
 	public boolean comprobarMail(String email) {
 		boolean resultado = false;
 		Pattern pattern = Pattern
