@@ -20,6 +20,8 @@ import objetosJuego.*;
  * @author JON URAGA, YERAY BELLANCO
  *
  */
+
+//PRUEBA GIT
 public class PanelJuego extends JPanel implements Runnable, KeyListener {
 
 	//CONSTANTES
