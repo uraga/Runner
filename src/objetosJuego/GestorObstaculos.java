@@ -1,5 +1,7 @@
 package objetosJuego;
 
+
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -13,10 +15,11 @@ import Proyecto.VentanasYEventos.*;
  * @author JON URAGA, YERAY BELLANCO
  *
  */
+
 public class GestorObstaculos {
 	
 	//ATRIBUTOS
-	private BufferedImage cactus1; 
+	private BufferedImage cactus1;
 	private BufferedImage cactus2;
 	private Random r;	
 	private List<Obstaculo> obstaculos; //lista de obstaculos
@@ -53,7 +56,7 @@ public class GestorObstaculos {
 	 * @param g
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	public void dibujar(Graphics g) {
+	public void draw(Graphics g) {
 		for(Obstaculo e : obstaculos) {
 			e.draw(g);
 		}
@@ -63,7 +66,7 @@ public class GestorObstaculos {
 	 * Metodo que crea obstaculo
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	public Obstaculo crearObstaculo() {
+	private Obstaculo crearObstaculo() {
 		int tipo = r.nextInt(2);
 		if(tipo == 0) {
 			return new Cactus(personaje, 800, cactus1.getWidth() - 10, cactus1.getHeight() - 10, cactus1);

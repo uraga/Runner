@@ -1,5 +1,7 @@
 package objetosJuego;
 
+
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -17,10 +19,8 @@ public class Nubes {
 	
 	//ATRIBUTOS
 	private List<ImagenNube> listaNubes; //lista de nubes
-	private BufferedImage nube; //nube
-	private Personaje personaje; //personaje principal
-	
-
+	private BufferedImage nube;	 //nube
+	private Personaje personaje;  //personaje principal
 	
 	//CONSTRUCTOR PRINCIPAL
 	public Nubes(int ancho, Personaje personaje) {

@@ -14,14 +14,15 @@ import Proyecto.VentanasYEventos.*;
  * @author JON URAGA, YERAY BELLANCO
  *
  */
+
 public class Suelo {
 	
 	//ATRIBUTOS
-	public static final int LAND_POSY = 103; //Posicion vertical
+	public static final int SUELO_POSY = 103;	//Posicion vertical
 	private List<ImagenSuelo> listaSuelo; //lista del suelo
 	private BufferedImage suelo1;
 	private BufferedImage suelo2;
-	private BufferedImage suelo3;	
+	private BufferedImage suelo3;
 	private Personaje personaje;
 	
 	//CONSTRUCTOR
@@ -66,14 +67,14 @@ public class Suelo {
 	 * Metodo que establece los tres tipo de suelo
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	private void setImagenSuelo(ImagenSuelo imagenSuelo) {
+	private void setImagenSuelo(ImagenSuelo ImagenSuelo) {
 		int tipoSuelo = getTipoSuelo();
 		if(tipoSuelo == 1) {
-			imagenSuelo.imagen = suelo1;
+			ImagenSuelo.imagen = suelo1;
 		} else if(tipoSuelo == 3) {
-			imagenSuelo.imagen = suelo3;
+			ImagenSuelo.imagen = suelo3;
 		} else {
-			imagenSuelo.imagen = suelo2;
+			ImagenSuelo.imagen = suelo2;
 		}
 	}
 	
@@ -83,7 +84,7 @@ public class Suelo {
 	 */
 	public void dibujar(Graphics g) {
 		for(ImagenSuelo imagenSuelo : listaSuelo) {
-			g.drawImage(imagenSuelo.imagen, (int) imagenSuelo.posX, LAND_POSY, null);
+			g.drawImage(imagenSuelo.imagen, (int) imagenSuelo.posX, SUELO_POSY, null);
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package Proyecto.VentanasYEventos;
 
+
+
 import javax.swing.JFrame;
 
 /**
@@ -7,11 +9,9 @@ import javax.swing.JFrame;
  * @author JON URAGA, YERAY BELLANCO
  *
  */
-
 public class VentanaJuego extends JFrame {
 	
 	//CONSTANTES
-	private static final long serialVersionUID = 1L;
 	public static final int ANCHO_PANTALLA = 600;
 	
 	//ATRIBUTOS
@@ -21,10 +21,9 @@ public class VentanaJuego extends JFrame {
 	public VentanaJuego() {
 		super("Juego Runner"); //Titulo 
 		setSize(ANCHO_PANTALLA, 175); //Tamaño
-		setLocation(400, 200); //Posicion
+		setLocation(400, 200); //Posicion 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setLocationRelativeTo(null);
 		
 		//PANEL
 		panelJuego = new PanelJuego();
@@ -41,7 +40,6 @@ public class VentanaJuego extends JFrame {
 		panelJuego.inicioJuego();
 	}
 	
-	//LLAMADA AL INICIO DE JUEGO
 	public static void main(String args[]) {
 		(new VentanaJuego()).inicioJuego();
 	}

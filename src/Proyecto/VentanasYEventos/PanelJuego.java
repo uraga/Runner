@@ -1,31 +1,28 @@
 package Proyecto.VentanasYEventos;
 
+
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.sun.javafx.font.Disposer;
+import objetosJuego.*;
 
-import objetosJuego.GestorObstaculos;
-import objetosJuego.Nubes;
-import objetosJuego.Personaje;
-import objetosJuego.Suelo;
+
+
 
 /**
  * Clase que implementa los graficos y la interfaz del teclado (salto y agacharse)
  * @author JON URAGA, YERAY BELLANCO
  *
  */
-
 public class PanelJuego extends JPanel implements Runnable, KeyListener {
 
 	//CONSTANTES
-	private static final long serialVersionUID = 1L;
 	private static final int INICIANDO_JUEGO = 0;
 	private static final int JUGANDO = 1;
 	private static final int JUEGO_TERMINADO = 2;
@@ -33,22 +30,21 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 	//ATRIBUTOS
 	private Suelo suelo; //suelo del juego
 	private Personaje personaje; //personaje principal del juego - DINO
-	private GestorObstaculos gestorObs; //Gestor de los obstaculos del juegp
+	private GestorObstaculos gestorObs; //Gestor de los obstaculos del juego
 	private Nubes nubes; //nubes de fondo
-	private Thread t; //Hilo
-	private boolean teclaPulsada; //registro de la tecla pulsada por parte del usuario
+	private Thread t;  //Hilo
+	private boolean teclaPulsada;  //registro de la tecla pulsada por parte del usuario
 	private int estadoJuego = INICIANDO_JUEGO; //Comienzo del juego
 	private BufferedImage btnReiniciar; //Reinicio de partida
-	private BufferedImage btnGameOver; //Fin de partida
+	private BufferedImage btnGameOver;  //Fin de partida
 
-	
 	//CONSTRUCTOR
 	public PanelJuego() {
 		personaje = new Personaje(); //Creamos dino
 		suelo = new Suelo(VentanaJuego.ANCHO_PANTALLA, personaje); //Creamos suelo
 		personaje.setVelX(4); //Velocidad
 		btnReiniciar = Img.getResouceImage("utils/botonReplay.png"); //Boton
-		btnGameOver = Img.getResouceImage("utils/gameOver.png"); //Boton
+		btnGameOver = Img.getResouceImage("utils/gameOver.png");//Boton
 		gestorObs = new GestorObstaculos(personaje); //Obstaculos
 		nubes = new Nubes(VentanaJuego.ANCHO_PANTALLA, personaje); //Nubes de fondo
 	}
@@ -68,7 +64,7 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 	 */
 	public void actualizarJuego() {
 		if (estadoJuego == JUGANDO) {
-			nubes.actualizar(); 
+			nubes.actualizar();
 			suelo.actualizar();
 			personaje.actualizar();
 			gestorObs.actualizar();
@@ -76,9 +72,6 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 				personaje.sonidoMuere();
 				estadoJuego = JUEGO_TERMINADO;
 				personaje.muerto(true);
-				JOptionPane.showMessageDialog(null, "Puntuacion: " + personaje.puntuacion);
-				VentanaMenu vMenu = new VentanaMenu();
-				vMenu.setVisible(true);
 			}
 		}
 	}
@@ -99,13 +92,14 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 		case JUEGO_TERMINADO:
 			nubes.dibujar(g);
 			suelo.dibujar(g);
-			gestorObs.dibujar(g);
+			gestorObs.draw(g);
 			personaje.dibujar(g);
 			g.setColor(Color.BLACK);
-			g.drawString("Puntuacion: " + personaje.puntuacion, 500, 20);
+			g.drawString("Puntuacion " + personaje.puntuacion, 500, 20);
 			if (estadoJuego == JUEGO_TERMINADO) {
 				g.drawImage(btnGameOver, 200, 30, null);
 				g.drawImage(btnReiniciar, 283, 50, null);
+				
 			}
 			break;
 		}
@@ -117,12 +111,11 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 	 */
 	@Override
 	public void run() {
-
 		//Atributos
 		int fps = 100;
 		long msPorFrame = 1000 * 1000000 / fps;
 		long tiempoFinal = 0;
-		long tiempoTranscurrido;		
+		long tiempoTranscurrido;	
 		int msSleep;
 		int nanoSleep;
 		long terminarProceso;
@@ -132,8 +125,8 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 			actualizarJuego();
 			repaint();
 			terminarProceso = System.nanoTime();
-			tiempoTranscurrido = Math.abs(tiempoFinal + msPorFrame - System.nanoTime());
-			msSleep = (int) Math.abs(tiempoTranscurrido / 1000000);
+			tiempoTranscurrido = (tiempoFinal + msPorFrame - System.nanoTime());
+			msSleep = (int) (tiempoTranscurrido / 1000000);
 			nanoSleep = (int) (tiempoTranscurrido % 1000000);
 			if (msSleep <= 0) {
 				tiempoFinal = System.nanoTime();
@@ -205,6 +198,7 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
 	private void reiniciarJuego() {
+		personaje.puntuacion = 0; 	
 		gestorObs.reiniciar();
 		personaje.muerto(false);
 		personaje.reiniciar();

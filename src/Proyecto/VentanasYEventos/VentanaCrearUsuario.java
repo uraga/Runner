@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.istack.internal.logging.Logger;
+
 
 import Proyecto.Datos.BD;
 

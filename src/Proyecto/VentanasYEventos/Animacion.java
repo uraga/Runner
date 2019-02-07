@@ -1,13 +1,17 @@
 package Proyecto.VentanasYEventos;
 
+
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Clase que implementa la animacion en el juego
  * @author JON URAGA, YERAY BELLANCO
- *
  */
+
+
 public class Animacion {
 
 	//ATRIBUTOS
@@ -17,9 +21,9 @@ public class Animacion {
 	private long tiempoPrevio;
 
 	//CONSTRUCTOR
-	public Animacion(int deltaTime) {
-		this.tiempoDelta = deltaTime;
-		lista = new ArrayList<BufferedImage>(); //ArrayList
+	public Animacion(int tiempoDelta) {
+		this.tiempoDelta = tiempoDelta;
+		lista = new ArrayList<BufferedImage>();
 		tiempoPrevio = 0;
 	}
 
@@ -27,6 +31,7 @@ public class Animacion {
 	 * Metodo de actualiza los frames
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
+	
 	public void updateFrame() {
 		if (System.currentTimeMillis() - tiempoPrevio >= tiempoDelta) {
 			frameActual++;
@@ -36,21 +41,23 @@ public class Animacion {
 			tiempoPrevio = System.currentTimeMillis();
 		}
 	}
-
+	
 	/**
 	 * Metodo que añade los frames
-	 * @param image
+	 * @param imagen
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	public void addFrame(BufferedImage image) {
-		lista.add(image);
-	}
 
+	public void addFrame(BufferedImage imagen) {
+		lista.add(imagen);
+	}
+	
 	/**
 	 * Metodo que obtiene los frames 
 	 * @return
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
+	
 	public BufferedImage getFrame() {
 		return lista.get(frameActual);
 	}

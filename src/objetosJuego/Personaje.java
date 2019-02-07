@@ -1,7 +1,10 @@
 package objetosJuego;
 
+
+
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -10,15 +13,17 @@ import java.net.URL;
 
 import Proyecto.VentanasYEventos.*;
 
+
 /**
  * Clase para el personaje principal DINO
  * @author JON URAGA, YERAY BELLANCO
  */
+
 public class Personaje {
 
 	//CONSTANTES
 	public static final int SUELO_POS_Y = 80; //Posicion vertical del suelo
-	public static final float GRAVEDAD = 0.4f; 
+	public static final float GRAVEDAD = 0.4f;
 	private static final int CORRIENDO = 0;
 	private static final int SALTANDO = 1;
 	private static final int AGACHANDO = 2;
@@ -29,8 +34,8 @@ public class Personaje {
 	private float posX; //Posicion horizontal del personaje
 	private float velX; //Velocidad x del personaje
 	private float velY; //Velocidad y del personaje
-	private Rectangle rectangulo;	
-	public int puntuacion = 0;	//Puntuacion inicial
+	private Rectangle rectangulo;
+	public int puntuacion = 0; //Puntuacion inicial	
 	private int estado = CORRIENDO;	
 	// ---ANIMACION--- //
 	private Animacion corriendoAnim;
@@ -70,10 +75,9 @@ public class Personaje {
 		return velX;
 	}
 
-	public void setVelX(int velX) {
-		this.velX = velX;
+	public void setVelX(int speedX) {
+		this.velX = speedX;
 	}
-	
 	
 	/**
 	 * Metodo que construye el personaje
@@ -96,6 +100,7 @@ public class Personaje {
 				break;
 		}
 
+		
 	}
 	
 	/**
@@ -135,11 +140,11 @@ public class Personaje {
 	 * Metodo de agacharse del personaje
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	public void agacharse(boolean isDown) {
+	public void agacharse(boolean agacharse) {
 		if(estado == SALTANDO) {
 			return;
 		}
-		if(isDown) {
+		if(agacharse) {
 			estado = AGACHANDO;
 		} else {
 			estado = CORRIENDO;
@@ -165,9 +170,8 @@ public class Personaje {
 	}
 	
 	///MUERTE //////
-	
-	public void muerto(boolean isDeath) {
-		if(isDeath) {
+	public void muerto(boolean muere) {
+		if(muere) {
 			estado = MUERTO;
 		} else {
 			estado = CORRIENDO;
