@@ -11,7 +11,7 @@ import java.util.Random;
 import Proyecto.VentanasYEventos.*;
 
 /**
- * Clase padre de creacion de obstaculos
+ * Clase padre de creacion de obstaculos ..
  * @author JON URAGA, YERAY BELLANCO
  *
  */

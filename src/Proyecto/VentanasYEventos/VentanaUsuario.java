@@ -100,7 +100,7 @@ public class VentanaUsuario extends JFrame {
 					String sentSQL = "select * from usuario where cod_usuario= '" + userIntroducido + "' and password= '" + passIntroducido + "';";
 					ResultSet rs = stat.executeQuery(sentSQL);
 					if ( rs.next() ) {
-						JOptionPane.showMessageDialog( null, "Bienvenid@" + userIntroducido, " ", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog( null, "Bienvenid@" + userIntroducido, " ", JOptionPane.INFORMATION_MESSAGE);						
 						VentanaMenu ventanaMenu = new VentanaMenu();
 						ventanaMenu.setVisible( true );
 						dispose();
