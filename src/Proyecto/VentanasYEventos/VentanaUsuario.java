@@ -21,7 +21,7 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 /**
- * CLASE PENDIENTE GESTION BD CON USUARIO
+ * GESTION BD CON USUARIO
  * @author JON URAGA, YERAY BELLANCO
  *
  */

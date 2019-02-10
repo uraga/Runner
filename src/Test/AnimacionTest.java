@@ -29,9 +29,9 @@ public class AnimacionTest {
 		c = new Animacion(5); 
 		
 		//añadimos a cada objeto una imagen 
-		a.addFrame(Img.getResouceImage("utils/cactus1.png"));
-		b.addFrame(Img.getResouceImage("utils/dino2.png"));
-		c.addFrame(Img.getResouceImage("utils/dino6.png"));
+		a.addFrame(Img.getResouceImage("utils/cactus1.png")); //frame 1
+		b.addFrame(Img.getResouceImage("utils/dino2.png")); //frame 2
+		c.addFrame(Img.getResouceImage("utils/dino6.png")); //frame 3
 		
 	}
 
