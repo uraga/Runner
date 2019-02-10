@@ -98,9 +98,6 @@ public class VentanaInicio extends JFrame {
 			e.printStackTrace();
 		}
 	
-		
-		
-		
 
 		// Cerramos actividad de la ventana, al pulsar X
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

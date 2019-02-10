@@ -21,7 +21,7 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 /**
- * GESTION BD CON USUARIO
+ * CLASE PENDIENTE GESTION BD CON USUARIO
  * @author JON URAGA, YERAY BELLANCO
  *
  */
@@ -64,6 +64,7 @@ public class VentanaUsuario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		//Elementos de la ventana 
 		intrUsuario = new JTextField();
@@ -100,8 +101,8 @@ public class VentanaUsuario extends JFrame {
 					String sentSQL = "select * from usuario where cod_usuario= '" + userIntroducido + "' and password= '" + passIntroducido + "';";
 					ResultSet rs = stat.executeQuery(sentSQL);
 					if ( rs.next() ) {
-						JOptionPane.showMessageDialog( null, "Bienvenid@" + userIntroducido, " ", JOptionPane.INFORMATION_MESSAGE);						
-						VentanaMenu ventanaMenu = new VentanaMenu();
+						JOptionPane.showMessageDialog( null, "Bienvenid@ " + userIntroducido, " ", JOptionPane.INFORMATION_MESSAGE);
+						VentanaMenu ventanaMenu = new VentanaMenu(userIntroducido);
 						ventanaMenu.setVisible( true );
 						dispose();
 					} else {

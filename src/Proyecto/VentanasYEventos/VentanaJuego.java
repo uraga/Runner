@@ -16,17 +16,18 @@ public class VentanaJuego extends JFrame {
 	
 	//ATRIBUTOS
 	private PanelJuego panelJuego;
+
 	
 	//CONSTRUCTOR
-	public VentanaJuego() {
-		super("Juego Runner"); //Titulo 
+	public VentanaJuego( String nombreU) {
+		setTitle("Juego Runner - " + nombreU); //Titulo 
 		setSize(ANCHO_PANTALLA, 175); //Tamaño
 		setLocation(400, 200); //Posicion 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		
 		//PANEL
-		panelJuego = new PanelJuego();
+		panelJuego = new PanelJuego( nombreU );
 		addKeyListener(panelJuego);
 		add(panelJuego);
 	}
@@ -39,8 +40,8 @@ public class VentanaJuego extends JFrame {
 		setVisible(true);
 		panelJuego.inicioJuego();
 	}
-	
-	public static void main(String args[]) {
-		(new VentanaJuego()).inicioJuego();
-	}
+
+//	public static void main(String args[]) {
+//		(new VentanaJuego()).inicioJuego();
+//	}
 }

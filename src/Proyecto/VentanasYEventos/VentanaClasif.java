@@ -23,31 +23,40 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import Proyecto.Datos.Usuario;
+/**
+ * 
+ * Clase de gestion de ranking
+ * @author YERAY BELLANCO, JON URAGA
+ *
+ */
 
 public class VentanaClasif extends JFrame {
 
+	//atributos
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaClasif frame = new VentanaClasif();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VentanaClasif frame = new VentanaClasif();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaClasif() {
+	@SuppressWarnings("serial")
+	public VentanaClasif( String nombreU ) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 451, 185);
 		setTitle("Clasificación");
@@ -55,6 +64,8 @@ public class VentanaClasif extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		setLocationRelativeTo(null);
+		
 		ModeloTabla modelo = new ModeloTabla();
 		JTable clasificacion = new JTable( modelo );
 		clasificacion.setDefaultRenderer(Integer.class, new DefaultTableCellRenderer() {
@@ -72,17 +83,19 @@ public class VentanaClasif extends JFrame {
 		getContentPane().add( new JScrollPane(clasificacion), BorderLayout.CENTER );
 		JButton btnVolver = new JButton( "Volver" );
 		btnVolver.addActionListener( new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenu vMenu = new VentanaMenu();
+				VentanaMenu vMenu = new VentanaMenu(nombreU);
 				vMenu.setVisible(true);
 				dispose();
 			}
 		});
-		
+		JButton btnUsuario = new JButton("Usuario");
+		JButton btnTodos = new JButton("Todos");
 		JPanel panelBoton = new JPanel();
 		panelBoton.add(btnVolver);
+		panelBoton.add(btnUsuario);
+		panelBoton.add(btnTodos);
 		add( panelBoton, BorderLayout.SOUTH );
 		
 		TableColumn columna = null;

@@ -32,9 +32,7 @@ import java.awt.event.ActionEvent;
  */
 public class VentanaCrearUsuario extends JFrame {
 
-	/**
-	 * 
-	 */
+	//Atributos
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtMail;
@@ -45,9 +43,7 @@ public class VentanaCrearUsuario extends JFrame {
 	private JTextField txtApellido;
 	
 	
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,9 +57,7 @@ public class VentanaCrearUsuario extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	//CONSTRUCTOR
 	public VentanaCrearUsuario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 665, 412);
@@ -153,6 +147,7 @@ public class VentanaCrearUsuario extends JFrame {
 						String sentSQL = "insert into usuario values( '" + txtUsuario.getText() + "', '" + txtNombre.getText() + "', '" + txtApellido.getText() + "', '" + txtMail.getText() + "', 1,686686686, 0, '" + contra + "'" + ");";
 						stat.executeUpdate(sentSQL);
 						BD.log( Level.INFO, "BD añadida", null );
+						JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
 					} catch (SQLException e2) {
 						e2.printStackTrace();
 						BD.log( Level.SEVERE, "Error en insert a BD", e2 );

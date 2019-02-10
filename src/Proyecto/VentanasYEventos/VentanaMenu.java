@@ -24,10 +24,12 @@ public class VentanaMenu extends JFrame {
 
 	// ATRIBUTOS//
 	private JPanel contentPane;
+	
 
 	// CONSTRUCTOR
-	public VentanaMenu() {
-
+	public VentanaMenu(String nombreU) {
+		
+		setTitle("Menu principal " + " - " + nombreU );
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
 		setLocation(400, 200);
@@ -41,24 +43,49 @@ public class VentanaMenu extends JFrame {
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				( new VentanaJuego() ).inicioJuego();
+				VentanaJuego vj = new VentanaJuego( nombreU );
+				vj.setVisible(true);
+				vj.inicioJuego();
 				dispose();
 			}
 		});
-		JButton btnOpciones = new JButton("OPCIONES");
+		JButton btnRanking = new JButton("RANKINGS");
+		btnRanking.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaClasif vc = new VentanaClasif(nombreU);
+				vc.setVisible(true);
+				dispose();
+			}
+		});
 		JButton btnCreditos = new JButton("CREDITOS");
+		btnCreditos.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCreditos vc = new VentanaCreditos(nombreU);
+				vc.setVisible(true);
+				dispose();
+			}
+		});
 		JButton btnExit = new JButton("<--");
+		btnExit.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaUsuario vu = new VentanaUsuario();
+				vu.setVisible(true);
+				dispose();
+			}
+		});
 		JLabel lblRunner = new JLabel("RUNNER");
 		JButton btnTrofeos = new JButton();
 		JButton btnTienda = new JButton();
 		JButton btnAjustes = new JButton();
-		JButton btnIniciarSesion = new JButton();
 
 		// Posición en la ventana
 		btnJugar.setBounds(129, 66, 177, 51);
 		contentPane.add(btnJugar);
-		btnOpciones.setBounds(129, 121, 177, 51);
-		contentPane.add(btnOpciones);
+		btnRanking.setBounds(129, 121, 177, 51);
+		contentPane.add(btnRanking);
 		btnCreditos.setBounds(129, 176, 177, 51);
 		contentPane.add(btnCreditos);
 		btnExit.setBounds(393, 6, 51, 29);
@@ -72,20 +99,19 @@ public class VentanaMenu extends JFrame {
 		contentPane.add(btnTienda);
 		btnAjustes.setBounds(393, 176, 51, 56);
 		contentPane.add(btnAjustes);
-		btnIniciarSesion.setBounds(20, 220, 51, 56);
-		contentPane.add(btnIniciarSesion);
+		
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaMenu vm = new VentanaMenu();
-					vm.setVisible(true); // Ventana visible
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VentanaMenu vm = new VentanaMenu();
+//					vm.setVisible(true); // Ventana visible
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 }

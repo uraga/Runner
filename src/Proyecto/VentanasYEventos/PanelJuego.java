@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import objetosJuego.*;
@@ -24,6 +25,10 @@ import objetosJuego.*;
 //PRUEBA GIT
 public class PanelJuego extends JPanel implements Runnable, KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//CONSTANTES
 	private static final int INICIANDO_JUEGO = 0;
 	private static final int JUGANDO = 1;
@@ -41,7 +46,7 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 	private BufferedImage btnGameOver;  //Fin de partida
 
 	//CONSTRUCTOR
-	public PanelJuego() {
+	public PanelJuego( String nombreU ) {
 		personaje = new Personaje(); //Creamos dino
 		suelo = new Suelo(VentanaJuego.ANCHO_PANTALLA, personaje); //Creamos suelo
 		personaje.setVelX(4); //Velocidad
@@ -74,6 +79,22 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 				personaje.sonidoMuere();
 				estadoJuego = JUEGO_TERMINADO;
 				personaje.muerto(true);
+				JOptionPane.showMessageDialog(null, "Puntuacion: " + personaje.puntuacion, "Información de partida", JOptionPane.INFORMATION_MESSAGE );
+				//medalla
+				if(personaje.puntuacion >=100 && personaje.puntuacion <250) {
+					JOptionPane.showMessageDialog(null, "Has logrado la medalla de novato,sigue jugando y conseguiras llegar alto. ");
+				}
+				else if (personaje.puntuacion >=250 && personaje.puntuacion <500) {
+					JOptionPane.showMessageDialog(null, "Has logrado la medalla de profesional,sigue jugando y seras un experto. ");
+				}
+				else if(personaje.puntuacion > 500) {
+					JOptionPane.showMessageDialog(null, "Has logrado la medalla de experto,te mereces todos los absolutos respetos. ");
+				}
+				else if(personaje.puntuacion > 1000) {
+					JOptionPane.showMessageDialog(null, "Eres legendario, este juego te pertenece. ");
+				}
+				VentanaMenu vm = new VentanaMenu(""); vm.setVisible(true); 
+				vm.getTitle();
 			}
 		}
 	}
@@ -199,7 +220,7 @@ public class PanelJuego extends JPanel implements Runnable, KeyListener {
 	 * Reinicia el juego, da comienzo a una nueva partida
 	 * @author JON URAGA, YERAY BELLANCO
 	 */
-	private void reiniciarJuego() {
+	private void reiniciarJuego() {	
 		personaje.puntuacion = 0; 	
 		gestorObs.reiniciar();
 		personaje.muerto(false);
